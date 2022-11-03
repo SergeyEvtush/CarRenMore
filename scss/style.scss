@@ -109,6 +109,27 @@ background: #fff;
 .menu {
 }
 .menu-burger {
+	position: relative;
+	width: 35px;
+	height: 3px;
+	border-radius: 2px;
+	background: rgba(61, 82, 120, 0.459);
+	margin-right: 20px;
+	cursor: pointer;
+}
+.menu-burger:before,.menu-burger:after{
+	content: '';
+	position: absolute;
+	width: 35px;
+	height: 3px;
+	border-radius: 2px;
+	background: rgba(61, 82, 120, 0.459);
+}
+.menu-burger:before{
+	top: 10px;
+}
+.menu-burger:after{
+	bottom: 10px;
 }
 .menu-list {
 }

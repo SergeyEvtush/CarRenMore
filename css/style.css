@@ -76,7 +76,7 @@ body {
 
 .header {
   width: 100%;
-  height: 70px;
+  height: 80px;
   background: #fff;
 }
 
@@ -84,13 +84,18 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 70px;
+  height: 80px;
 }
 
 .title-block {
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+@media(max-width:760px){
+	.title-block {
+		flex-wrap: wrap;
+	 }
 }
 
 .header-block__logo {
@@ -106,6 +111,7 @@ body {
 .searching-form {
   display: flex;
   justify-content: center;
+  padding:0px 0px 0px 10px;
 }
 
 .input-wraper {
@@ -139,6 +145,7 @@ body {
   line-height: 1.5;
   padding: 11px 25px 11px 35px;
   background: #fff;
+  margin:0px 0px 0px 0px;
 }
 
 .searching-input:focus {
@@ -158,4 +165,31 @@ body {
   top: 25%;
   background: url(../assets/img/filter.svg) center center no-repeat;
   right: 5%;
+}
+
+.menu-burger {
+  position: relative;
+  width: 35px;
+  height: 3px;
+  border-radius: 2px;
+  background: rgba(61, 82, 120, 0.459);
+  margin:0px 20px 0px 20px;
+  cursor: pointer;
+}
+
+.menu-burger:before, .menu-burger:after {
+  content: "";
+  position: absolute;
+  width: 35px;
+  height: 3px;
+  border-radius: 2px;
+  background: rgba(61, 82, 120, 0.459);
+}
+
+.menu-burger:before {
+  top: 10px;
+}
+
+.menu-burger:after {
+  bottom: 10px;
 }
