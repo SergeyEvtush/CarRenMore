@@ -3,12 +3,27 @@
 .wraper {
 }
 .rental-page {
+	background: #F6F7F9;
+}
+.rental-page__container{
+max-width: 1190px;
+margin: 0 auto;
 }
 .header {
+	width: 100%;
+	height: 50px;
 }
-.header-block {
-}
+
 .header__wraper {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+.title-block{
+display: flex;
+}
+.menu-block{
+
 }
 .header-block__logo {
 }
@@ -21,6 +36,7 @@
 .searching-form {
 }
 .searching-input {
+	border: solid 1px black;
 }
 .filter-btn {
 }
