@@ -60,10 +60,10 @@ line-height: 1.5;
 padding:11px 25px 11px 25px;
 }
 .searching-input::before{
-	content: '';
+	content: url(../assets/img/search-normal.svg);
 	width: 25px;
 	height: 25px;
-	background:url(../assets/img/search-normal.svg) ;
+	background:url(../assets/img/search-normal.svg)center ;
 	border: 1px solid black;
 }
 .filter-btn {
