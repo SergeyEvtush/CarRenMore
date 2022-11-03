@@ -1,5 +1,6 @@
 @import "null.scss";
 @import "fonts.scss";
+
 .wraper {
 }
 .rental-page {
@@ -101,21 +102,23 @@ background: #fff;
 	top: 25%;
 	background:url(../assets/img/filter.svg)center center no-repeat;
 	right: 5%;
-
 }
-
-.header-block__menu {
-}
-.menu {
-}
+/*стили для иконки крестика+анимашка*/
 .menu-burger {
 	position: relative;
+	margin-right: 20px;
+	cursor: pointer;
+	transition: all 0.3s ease-in-out 0.3s;
+}
+.burger-line{
+	position: absolute;
+	bottom: -2px;
+	right: 20%;
 	width: 35px;
 	height: 3px;
 	border-radius: 2px;
 	background: rgba(61, 82, 120, 0.459);
-	margin-right: 20px;
-	cursor: pointer;
+	transition: all 0.5s ease-in-out 0.3s;
 }
 .menu-burger:before,.menu-burger:after{
 	content: '';
@@ -124,12 +127,36 @@ background: #fff;
 	height: 3px;
 	border-radius: 2px;
 	background: rgba(61, 82, 120, 0.459);
+	transition: all 0.3s ease-in-out 0.3s;
 }
 .menu-burger:before{
 	top: 10px;
+	right: 20%;
 }
 .menu-burger:after{
 	bottom: 10px;
+	right: 20%;
 }
+.menu-burger.active .burger-line{
+opacity: 0;
+visibility: hidden;
+transition: all 0.5s ease-in-out 0.3s;
+}
+.menu-burger.active:after{
+	transform: rotate(45deg);
+	bottom: -1px;
+	transition: all 0.3s ease-in-out 0.3s;
+}
+.menu-burger.active:before{
+	transform: rotate(-45deg);
+top: -1px;
+transition: all 0.3s ease-in-out 0.3s;
+}
+/*---------------------------------------*/
+.header-block__menu {
+}
+.menu {
+}
+
 .menu-list {
 }
