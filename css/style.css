@@ -94,12 +94,25 @@ body {
   height: 70px;
 }
 
+@media (max-width: 767px) {
+  .header {
+    height: 100px;
+  }
+  .header__wraper {
+    height: 100px;
+  }
+}
 .title-block {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
+@media (max-width: 767px) {
+  .title-block {
+    flex-wrap: wrap;
+  }
+}
 .header-block__logo {
   margin: 0px 100px 0px 0px;
 }
@@ -119,6 +132,10 @@ body {
   border-radius: 28px;
   position: relative;
   transition: all 1s ease 0.5s;
+}
+
+.searching-form__input {
+  margin: 0px 20px 0px 0px;
 }
 
 .input-wraper:hover {
@@ -164,6 +181,10 @@ body {
   top: 25%;
   background: url(../assets/img/filter.svg) center center no-repeat;
   right: 5%;
+}
+
+.header-block__menu {
+  margin: 0px 0px 0px 40px;
 }
 
 /*стили для иконки крестика+анимашка*/
