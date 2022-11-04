@@ -14,11 +14,17 @@ background: #acafb646;
 .rental-page__content-container{
 	max-width: 1185px;
 margin: 0 auto;
+background: #fff;
+}
+.items-container{
+	max-width: 1140px;
+	margin: 0 auto;
+	padding:0px 5px 0px 5px;
 }
 .header {
 	width: 100%;
 	height: 70px;
-	background: #fff;
+	
 	
 }
 
@@ -37,7 +43,7 @@ justify-content: space-between;
 
 }
 .header-block__logo {
-	padding:0px 0px 0px 30px;
+	
 	margin:0px 100px 0px 0px;
 }
 .logo {
@@ -103,10 +109,19 @@ background: #fff;
 	background:url(../assets/img/filter.svg)center center no-repeat;
 	right: 5%;
 }
+.header-block__menu {
+
+}
+.menu {
+
+}
+
+.menu-list {
+
+}
 /*стили для иконки крестика+анимашка*/
 .menu-burger {
 	position: relative;
-	margin-right: 20px;
 	cursor: pointer;
 	transition: all 0.3s ease-in-out 0.3s;
 }
@@ -153,10 +168,3 @@ top: -1px;
 transition: all 0.3s ease-in-out 0.3s;
 }
 /*---------------------------------------*/
-.header-block__menu {
-}
-.menu {
-}
-
-.menu-list {
-}

@@ -40,7 +40,7 @@ body {
   font-size: 14px;
   color: #1a1a1a;
   font-weight: 500;
-  font-family: Oswald;
+  font-family: PlusJacartaMedium;
 }
 
 @font-face {
@@ -73,12 +73,18 @@ body {
 .rental-page__content-container {
   max-width: 1185px;
   margin: 0 auto;
+  background: #fff;
+}
+
+.items-container {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 0px 5px 0px 5px;
 }
 
 .header {
   width: 100%;
   height: 70px;
-  background: #fff;
 }
 
 .header__wraper {
@@ -95,7 +101,6 @@ body {
 }
 
 .header-block__logo {
-  padding: 0px 0px 0px 30px;
   margin: 0px 100px 0px 0px;
 }
 
@@ -164,7 +169,6 @@ body {
 /*стили для иконки крестика+анимашка*/
 .menu-burger {
   position: relative;
-  margin-right: 20px;
   cursor: pointer;
   transition: all 0.3s ease-in-out 0.3s;
 }
