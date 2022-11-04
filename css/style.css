@@ -64,6 +64,7 @@ body {
   font-weight: 700;
   font-style: normal;
 }
+/*colors*/
 .rental-page__container {
   max-width: 1190px;
   margin: 0 auto;
@@ -158,7 +159,8 @@ body {
 .searching-input {
   border-radius: 28px;
   font-size: 16px;
-  color: rgb(61, 82, 120);
+  color: #3D5278;
+  font-family: PlusJacartaRegular;
   line-height: 1.5;
   padding: 11px 25px 11px 35px;
   background: #fff;
@@ -244,3 +246,12 @@ body {
 }
 
 /*---------------------------------------*/
+/*---------------------------------------*/
+.title-filter {
+  font-size: 18px;
+  font-family: PlusJacartaBold;
+  color: #94A7CB;
+  line-height: 1.5;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}

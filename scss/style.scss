@@ -1,6 +1,16 @@
 @import "null.scss";
 @import "fonts.scss";
 
+/*colors*/
+$input-filter-color:#3D5278;
+$main-font-color: #1A202C;
+$paragraph-color:#90A3BF;
+$title-filter-text:#94A7CB;
+$blue-color: #3563E9;
+$bold:PlusJacartaBold;
+$medium:PlusJacartaMedium;
+$regular:PlusJacartaRegular;
+
 .wraper {
 }
 .rental-page {
@@ -47,7 +57,7 @@ justify-content: space-between;
 }
 @media(max-width:767px){
 	.title-block{
-		
+
 	flex-wrap: wrap;
 		}
 }
@@ -101,7 +111,8 @@ border: solid 1px  rgba(195, 212, 233, 0.4);
 .searching-input {
 	border-radius: 28px;
 	font-size:16px;
-color: rgba(61, 82, 120, 1);
+color: $input-filter-color;
+font-family: $regular;
 line-height: 1.5;
 padding:11px 25px 11px 35px;
 background: #fff;
@@ -183,3 +194,86 @@ top: -1px;
 transition: all 0.3s ease-in-out 0.3s;
 }
 /*---------------------------------------*/
+/*---------------------------------------*/
+.page-content {
+}
+.filter-block {
+}
+.filter-block__item {
+}
+.filter {
+}
+.filter-block__title {
+}
+.title-filter {
+	font-size: 18px;
+	font-family:PlusJacartaBold;
+	color: $title-filter-text;
+	line-height: 1.5;
+	letter-spacing: 0.02em;
+	text-transform: uppercase;
+}
+.filter__items {
+}
+.list-fiter {
+}
+.list-filter__li {
+}
+.metriks {
+}
+.price-item {
+}
+.rental-block {
+}
+.rental-block__wraper {
+}
+.rental-block__title {
+}
+.order-block {
+}
+.pick-up {
+}
+.make-order {
+}
+.drop-of {
+}
+.cars {
+}
+.cars-item {
+}
+.car-item__wraper {
+}
+.cars-item__title {
+}
+.title-car {
+}
+.type-car {
+}
+.car-reiting {
+}
+.cars-item__foto {
+}
+.cars-item__description {
+}
+.description-car {
+}
+.cars-item__to-order {
+}
+.order-price {
+}
+.cars-item__price {
+}
+.order-button {
+}
+.cars-item__button {
+}
+.rent-btn {
+}
+.btn-rent-link {
+}
+.show-more-btn {
+}
+.show-more-btn__link {
+}
+.btn-show {
+}
