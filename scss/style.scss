@@ -197,7 +197,11 @@ transition: all 0.3s ease-in-out 0.3s;
 /*---------------------------------------*/
 .page-content {
 }
+.page-content-wraper{
+	display: flex;
+}
 .filter-block {
+	flex: 0 0 12%;
 }
 .filter-block__item {
 }
@@ -239,30 +243,56 @@ transition: all 0.3s ease-in-out 0.3s;
 }
 .cars {
 }
+.cars__fotos{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	flex-wrap: wrap;
+}
 .cars-item {
+	border: solid 1px black;
 }
 .car-item__wraper {
+	width: 200px;
 }
 .cars-item__title {
+	margin:10px;
 }
 .title-car {
+	font-size: 18px;
+	font-family:PlusJacartaMedium;
+	color:$main-font-color;
+	line-height:1.2 ;
 }
 .type-car {
+	font-size: 12px;
+	font-family:PlusJacartaMedium;
+	color:$paragraph-color;
+	line-height:1.2 ;
 }
 .car-reiting {
+	display: flex;
 }
 .cars-item__foto {
+	text-align: center;
+	margin: 0 auto;
 }
 .cars-item__description {
+	margin:20px 20px 15px 20px;
 }
 .description-car {
 }
 .cars-item__to-order {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
 }
-.order-price {
+
+.price-order{
+	display: inline-block;
 }
-.cars-item__price {
-}
+
 .order-button {
 }
 .cars-item__button {

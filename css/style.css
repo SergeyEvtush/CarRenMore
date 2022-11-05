@@ -247,6 +247,14 @@ body {
 
 /*---------------------------------------*/
 /*---------------------------------------*/
+.page-content-wraper {
+  display: flex;
+}
+
+.filter-block {
+  flex: 0 0 12%;
+}
+
 .title-filter {
   font-size: 18px;
   font-family: PlusJacartaBold;
@@ -254,4 +262,62 @@ body {
   line-height: 1.5;
   letter-spacing: 0.02em;
   text-transform: uppercase;
+}
+
+.cars__fotos {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.cars-item {
+  border: solid 1px black;
+}
+
+.car-item__wraper {
+  width: 250px;
+}
+
+.cars-item__title {
+  margin: 10px;
+}
+
+.title-car {
+  font-size: 18px;
+  font-family: PlusJacartaMedium;
+  color: #1A202C;
+  line-height: 1.2;
+}
+
+.type-car {
+  font-size: 12px;
+  font-family: PlusJacartaMedium;
+  color: #90A3BF;
+  line-height: 1.2;
+}
+
+.car-reiting {
+  display: flex;
+}
+
+.cars-item__foto {
+  text-align: center;
+  margin: 0 auto;
+}
+
+.cars-item__description {
+  margin: 20px 20px 15px 20px;
+}
+
+.cars-item__to-order {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+margin:0px 0px 20px 0px;
+}
+
+.price-order {
+  display: inline-block;
 }
