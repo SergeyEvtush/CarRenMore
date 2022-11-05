@@ -1,9 +1,9 @@
 "use strict"
 
 const burger = document.querySelector('.menu-burger');
-
 const orderList = document.querySelector('.cars__fotos');
-
+const checkboxFilter=document.querySelectorAll('.check');
+const checkedImage = document.querySelector('.checked__image');
 const mersedes = {
 	model: "Mersedes",
 	type: "Sport",
@@ -18,7 +18,7 @@ const mersedes = {
 };
 const porshe = {
 	model: "Porshe",
-	type: "Sport",
+	type: "Hatchback",
 	transmission: "Authomatic",
 	fuelType: "Gasoline",
 	capasity: "4 person",
@@ -55,13 +55,12 @@ const rush = {
 const cars = [
 	mersedes, porshe, honda, rush
 ];
-
+/*событие на иконку бургера */
 burger.addEventListener('click', () => {
-
 	burger.classList.toggle('active');
 });
 
-
+/*разметка для карточек */
 const renderCard = (car) => {
 
 	return `<div class="cars-item">
@@ -107,7 +106,7 @@ const renderCard = (car) => {
 </div>
 </div>`
 };
-
+/*метод рисующий отфильтрованные карточки */
 const filterList = (arrElements, where,filterName) => {
 	const newArr = arrElements.filter((element) => { 
 		for (const key in element) {
@@ -117,15 +116,38 @@ const filterList = (arrElements, where,filterName) => {
 	}
 	});
 }
+/*метод рисующий карточки */
 const renderList = (arrElements, where) => { 
 	arrElements.forEach(element => {
 		where.insertAdjacentHTML('afterbegin', renderCard(element));
 	});
-	
 }
+const clearList = (arrElements, where) => {
+	arrElements = [];
+ }
 
-/* renderList(cars,orderList); */
 
-filterList(cars,orderList,"Sport");
+const getDataCheckbox = (arr) => {
+	arr.forEach((element) => {
+		element.addEventListener('click', (e) => { 
+			e.preventDefault();
+			clearList(cars,orderList);
+			element.classList.toggle('active');
+			checkedImage.classList.toggle('active');
+			if (checkedImage.classList.contains('active')) { 
+				console.log(element.getAttribute('data-type'));
+				clearList(cars, orderList);
+				filterList(cars,orderList,element.getAttribute('data-type')); 
+			
+				
+			}
+		});
+	});
+};
 
+ getDataCheckbox(checkboxFilter);
+/* console.log(typeof(getDataCheckbox(checkboxFilter))); */ 
+
+
+renderList(cars, orderList);
 
