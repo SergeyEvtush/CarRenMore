@@ -14,13 +14,18 @@ $regular:PlusJacartaRegular;
 .wraper {
 }
 .rental-page {
+
 	
+
+	
+}
+._container{
 	max-width: 1190px;
-	background:$paragraph-color;
 	margin: 0 auto;
+	background: #fff;
 }
 .rental-page__container-background{
-	background: #fff;
+
 
 }
 .rental-page__content-container{
@@ -36,6 +41,7 @@ margin: 0 auto;
 .header {
 	width: 100%;
 	height: 70px;
+	border-bottom:1px solid $title-filter-text;
 
 }
 
@@ -208,7 +214,7 @@ transition: all 0.3s ease-in-out 0.3s;
 .filter-block {
 	flex: 0 0 12%;
 	background: #fff;
-	margin:3px 0px 0px 0px;
+
 }
 .filter-block__item {
 	padding:10px 20px 20px 0px;
@@ -349,3 +355,33 @@ border-radius: 3px;
 .btn-show {
 	color: #fff;
 }
+/*---------------------footer---------------------*/
+.footer {
+
+ }
+ 
+ .footer__wraper {
+	border-top: 1px solid rgba(172, 175, 182, 0.2745098039);/*background: */
+	margin: 0 auto;
+ }
+ .footer__container{
+	 max-width: 1130px;
+	 margin: 0 auto;
+	 padding: 20px 0px 20px 0px;
+	 display: flex;
+	 justify-content: space-between;
+	 background: #fff;
+ }
+.footer-item {
+}
+.title-block {
+}
+.header-block__logo {
+}
+.logo {
+}
+.footer-item__title {
+}
+.footer-list {
+}
+/*------------------------------------------------*/
