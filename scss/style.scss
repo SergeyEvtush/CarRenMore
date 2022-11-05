@@ -15,16 +15,18 @@ $regular:PlusJacartaRegular;
 }
 .rental-page {
 	
+	max-width: 1190px;
+	background:$paragraph-color;
+	margin: 0 auto;
 }
-.rental-page__container{
-max-width: 1190px;
-margin: 0 auto;
+.rental-page__container-background{
+	background: #fff;
 
 }
 .rental-page__content-container{
 	max-width: 1185px;
 margin: 0 auto;
-background: #fff;
+
 }
 .items-container{
 	max-width: 1140px;
@@ -206,12 +208,14 @@ transition: all 0.3s ease-in-out 0.3s;
 .filter-block {
 	flex: 0 0 12%;
 	background: #fff;
+	margin:3px 0px 0px 0px;
 }
 .filter-block__item {
+	padding:10px 20px 20px 0px;
 }
-.filter {
-}
+
 .filter-block__title {
+	margin:0px 10px 10px 0px;
 }
 .title-filter {
 	font-size: 18px;
@@ -226,6 +230,15 @@ transition: all 0.3s ease-in-out 0.3s;
 .list-fiter {
 }
 .list-filter__li {
+	width: 100%;
+
+}
+.list-filter__li:not(:last-child) {
+	margin-bottom: 12px;
+	
+}
+.list-filter__li>input{
+	margin:0px 7px 0px 0px;
 }
 .metriks {
 }
@@ -234,6 +247,7 @@ transition: all 0.3s ease-in-out 0.3s;
 .rental-block {
 }
 .rental-block__wraper {
+	margin: 18px;
 }
 .rental-block__title {
 }
@@ -249,16 +263,26 @@ transition: all 0.3s ease-in-out 0.3s;
 }
 .cars__fotos{
 	display: flex;
-	justify-content: space-between;
+	justify-content: center;
 	align-items: center;
 	flex-wrap: wrap;
 }
 .cars-item {
-	border: solid 1px black;
 	background: #fff;
+	flex: 0 0 20%;
+	border-radius: 5px;
+	margin: 10px 15px 10px 15px;
 }
 .car-item__wraper {
 	width: 200px;
+	margin: 0 auto;
+
+}
+@media(max-width:768px){
+	.cars-item {
+		background: #fff;
+		flex: 1 1 50%;
+	 }
 }
 .cars-item__title {
 	margin:10px;
