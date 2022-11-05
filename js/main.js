@@ -106,12 +106,26 @@ const renderCard = (car) => {
 	</div>
 </div>
 </div>`
-}
-const renderList = (arrElements,where) => {
-	arrElements.forEach(element => {
-		where.insertAdjacentHTML('afterbegin',renderCard (element));
+};
+
+const filterList = (arrElements, where,filterName) => {
+	const newArr = arrElements.filter((element) => { 
+		for (const key in element) {
+			if (element[key] == filterName) {
+				where.insertAdjacentHTML('afterbegin', renderCard(element));
+			}
+	}
 	});
- }
-renderList(cars,orderList);
+}
+const renderList = (arrElements, where) => { 
+	arrElements.forEach(element => {
+		where.insertAdjacentHTML('afterbegin', renderCard(element));
+	});
+	
+}
+
+/* renderList(cars,orderList); */
+
+filterList(cars,orderList,"Sport");
 
 

@@ -255,6 +255,7 @@ transition: all 0.3s ease-in-out 0.3s;
 .rental-block {
 }
 .rental-block__wraper {
+
 	margin: 18px;
 }
 .rental-block__title {
@@ -268,8 +269,12 @@ transition: all 0.3s ease-in-out 0.3s;
 .drop-of {
 }
 .cars {
+	max-width: 100%;
+	margin: 0 auto;
 }
 .cars__fotos{
+	margin: 0 auto;
+	width: 100%;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -277,7 +282,7 @@ transition: all 0.3s ease-in-out 0.3s;
 }
 .cars-item {
 	background: #fff;
-	flex: 0 0 20%;
+	flex: 0 0 25%;
 	border-radius: 5px;
 	margin: 10px 15px 10px 15px;
 }
@@ -313,11 +318,19 @@ transition: all 0.3s ease-in-out 0.3s;
 .cars-item__foto {
 	text-align: center;
 	margin: 0 auto;
+	width: 150px;
+	height: 80px;
 }
+
 .cars-item__description {
 	margin:20px 20px 15px 20px;
 }
-.description-car {
+.description-car li{
+	margin:0px 0px 15px 0px;
+}
+.description-car li>span{
+	margin-left: 5px;
+	color: $paragraph-color;
 }
 .cars-item__to-order {
 	width: 100%;
