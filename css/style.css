@@ -418,7 +418,7 @@ body {
 }
 
 .footer-list {
-  margin: 10px;
+  margin: 15px;
 }
 
 .footer-list li {
@@ -427,7 +427,7 @@ body {
 }
 
 .footer-list li:not(:last-child) {
-  margin: 0px 0px 7px 0px;
+  margin: 0px 0px 15px 0px;
 }
 
 /*------------------------------------------------*/
