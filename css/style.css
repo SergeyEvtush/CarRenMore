@@ -68,7 +68,6 @@ body {
 .rental-page__container {
   max-width: 1190px;
   margin: 0 auto;
-  background: rgba(172, 175, 182, 0.2745098039);
 }
 
 .rental-page__content-container {
@@ -249,10 +248,12 @@ body {
 /*---------------------------------------*/
 .page-content-wraper {
   display: flex;
+  background: rgba(172, 175, 182, 0.2745098039);
 }
 
 .filter-block {
   flex: 0 0 12%;
+  background: #fff;
 }
 
 .title-filter {
@@ -273,10 +274,11 @@ body {
 
 .cars-item {
   border: solid 1px black;
+  background: #fff;
 }
 
 .car-item__wraper {
-  width: 250px;
+  width: 200px;
 }
 
 .cars-item__title {
@@ -315,9 +317,31 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-around;
-margin:0px 0px 20px 0px;
+  margin: 0px 0px 20px 0px;
 }
 
 .price-order {
   display: inline-block;
+  font-size: 12px;
+}
+
+._grey {
+  color: #90A3BF;
+  font-size: 10px;
+}
+
+.rent-btn {
+  background: #3563E9;
+  padding: 10px 0px 10px 0px;
+  text-align: center;
+  border-radius: 3px;
+}
+
+.btn-rent-link {
+  color: #fff;
+  padding: 10px 24px 10px 24px;
+}
+
+.btn-show {
+  color: #fff;
 }
