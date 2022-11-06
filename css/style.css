@@ -322,6 +322,19 @@ body {
   margin: 0px 0px 0px 10px;
 }
 
+.slidecontainer {
+  width: 100%;
+}
+
+.price-slider {
+  transition: opacity 0.2s;
+}
+
+.price-slider:hover {
+  cursor: pointer;
+  opacity: 1;
+}
+
 .rental-block {
   width: 100%;
 }

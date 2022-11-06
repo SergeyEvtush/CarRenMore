@@ -281,6 +281,20 @@ transition: all 0.3s ease-in-out 0.3s;
 }
 .price-item {
 }
+.filter__items {
+}
+.slidecontainer {
+	width: 100%;
+
+}
+.price-slider {
+    transition: opacity .2s;
+}
+.price-slider:hover {
+	cursor: pointer; 
+	opacity: 1; 
+}
+
 .rental-block {
 	width: 100%;
 }

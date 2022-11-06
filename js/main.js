@@ -15,7 +15,7 @@ const mersedes = {
 	fuelType: "Gasoline",
 	capasity: "2 person",
 	year: "2021",
-	price: "100$",
+	price: "3000",
 	rating: "five",
 	bluetooth: true,
 	foto: "Assets/img/car.jpg"
@@ -27,7 +27,7 @@ const porshe = {
 	fuelType: "Gasoline",
 	capasity: "2 person",
 	year: "2022",
-	price: "110$",
+	price: "2500",
 	rating: 4,
 	bluetooth: true,
 	foto: "Assets/img/car1.jpg"
@@ -39,7 +39,7 @@ const honda = {
 	fuelType: "Gasoline",
 	capasity: "4 person",
 	year: "2020",
-	price: "100$",
+	price: "2000",
 	rating: 5,
 	bluetooth: true,
 	foto: "Assets/img/car2.jpg"
@@ -51,7 +51,7 @@ const rush = {
 	fuelType: "Gasoline",
 	capasity: "4 person",
 	year: "2020",
-	price: "100$",
+	price: "2000",
 	rating: 5,
 	bluetooth: true,
 	foto: "Assets/img/car3.jpg"
@@ -63,7 +63,7 @@ const rush2 = {
 	fuelType: "Gasoline",
 	capasity: "6 person",
 	year: "2020",
-	price: "100$",
+	price: "2500",
 	rating: 5,
 	bluetooth: true,
 	foto: "Assets/img/car3.jpg"
@@ -75,7 +75,7 @@ const rush1 = {
 	fuelType: "Gasoline",
 	capasity: "8 person",
 	year: "2020",
-	price: "100$",
+	price: "3000",
 	rating: 5,
 	bluetooth: true,
 	foto: "Assets/img/car3.jpg"
@@ -198,21 +198,41 @@ const renderList = (arrElements, where) => {
 		where.insertAdjacentHTML('afterbegin', renderCard(element));
 	});
 }
+/*Метод рисующий ползунок цен */
+
+const filterSlider = document.querySelector('#price');
+const priceValue = document.querySelector('.price-value');
+
+function priceValueS() { 
+	priceValue.innerHTML = filterSlider.value;
+	return filterSlider.value
+}
+
+	priceValue.innerHTML = filterSlider.value;
+	filterSlider.addEventListener('input', priceValueS);
+
+
 /*Метод фильтрации с пом checkbox */
-const getDataCheckbox = (arr) => {
+const getDataCheckbox = (arr,price=2500) => {
 	arr.forEach((element) => {
 		element.addEventListener('click', (e) => { 
+			
 			e.preventDefault();
+
 			arr.forEach((el) => {
+
 				orderList.innerHTML = "";
 				renderList(filterList(cars, el.getAttribute('data-type')), orderList);
 				el.classList.remove('active');
 				el.previousElementSibling.classList.remove('active');
+
 			});
+
 			element.classList.toggle('active');
 			element.previousElementSibling.classList.toggle('active');
 			
-			if (element.classList.contains('active')) {
+			if (element.classList.contains('active')/*  && price <= element.price */) {
+
 				orderList.innerHTML = "";
 				renderList(filterList(cars, element.getAttribute('data-type')), orderList);
 
@@ -241,3 +261,4 @@ clearFilters.addEventListener('click', (e) => {
 	orderList.innerHTML = "";
 	renderList(cars, orderList);
 	 });
+	 
