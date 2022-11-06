@@ -2,7 +2,7 @@
 
 const burger = document.querySelector('.menu-burger');
 const orderList = document.querySelector('.cars__fotos');
-
+const clearFilters = document.querySelector('.clear-filters');
 //list-fiter
  const fiterList=document.querySelector('.filter1'); 
  const fiterList1=document.querySelector('.filter2'); 
@@ -84,6 +84,7 @@ const rush1 = {
 const cars = [
 	mersedes, porshe, honda, rush,rush1,rush2
 ];
+/*событие на кнопку "clear-filters" */
 
 /*событие на иконку бургера */
 burger.addEventListener('click', () => {
@@ -102,22 +103,21 @@ const getData = (carsArr,typeKey) => {
 	});
 	return Array.from(new Set(dataCars));
 };
-console.log(getData(cars,'type'));
+
 /*!создаю разметку для фильтров */
 const createFilters = (filtersArray,where) =>
 {
 	const ul = document.createElement('ul');
 	ul.classList.add('list-fiter');
 	filtersArray.forEach((el) => { 
-		
-		ul.insertAdjacentHTML('afterbegin',`<li class="list-filter__li"><div class="checked__image"></div><input type="checkbox" name="type" id=""${el}"" class="check" data-type="${el}"><label>${el}</label><span class="metriks">(14)</span></li>`);
+		ul.insertAdjacentHTML('afterbegin',`<li class="list-filter__li"><div class="checked__image"></div><input type="checkbox" name="type" id="${el}" class="check" data-type="${el}"><label>${el}</label><span class="metriks">(14)</span></li>`);
 	});
 	where.appendChild(ul);
 };
 createFilters(getData(cars, 'type'), fiterList);
 createFilters(getData(cars,'capasity'),fiterList1);
 const checkboxFilter=document.querySelectorAll('.check');
-const checkedImage = document.querySelector('.checked__image');
+const checkedImage = document.querySelectorAll('.checked__image');
 
 
 /*разметка для карточек */
@@ -187,15 +187,28 @@ const renderList = (arrElements, where) => {
 }
 /*Метод фильтрации с пом checkbox */
 const getDataCheckbox = (arr) => {
+
 	arr.forEach((element) => {
 		element.addEventListener('click', (e) => { 
 			e.preventDefault();
+			arr.forEach((el) => {
+				
+				console.log(typeof(el));
+				
+				orderList.innerHTML = "";
+				
+				renderList(filterList(cars, el.getAttribute('data-type')), orderList);
+				el.classList.remove('active');
+				el.previousElementSibling.classList.remove('active');
+			}
+			);
 			element.classList.toggle('active');
-			checkedImage.classList.toggle('active');
-			if (checkedImage.classList.contains('active')) {
+			element.previousElementSibling.classList.toggle('active');
+			
+			if (element.classList.contains('active')) {
 				orderList.innerHTML = "";
 				renderList(filterList(cars, element.getAttribute('data-type')), orderList);
-				console.log(filterList(cars, element.getAttribute('data-type')));
+
 			} else { 
 				orderList.innerHTML = "";
 				renderList(cars, orderList);
@@ -206,4 +219,17 @@ const getDataCheckbox = (arr) => {
 
  	getDataCheckbox(checkboxFilter);
 	renderList(cars, orderList);
-
+/*метод удаления классов с элемента */
+const clearAllFilters = (arr) => {
+	arr.forEach((element) => { 
+		element.classList.remove('active');
+	});
+};
+/*очистка фильтров по клику */
+clearFilters.addEventListener('click', (e) => {
+	e.preventDefault();
+	clearAllFilters(checkboxFilter);
+	clearAllFilters(checkedImage);
+	orderList.innerHTML = "";
+	renderList(cars, orderList);
+	 });

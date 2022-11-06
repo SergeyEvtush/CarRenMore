@@ -214,7 +214,7 @@ transition: all 0.3s ease-in-out 0.3s;
 	background: #acafb646;
 }
 .filter-block {
-	flex: 0 0 12%;
+	flex: 0 0 15%;
 	background: #fff;
 
 }
@@ -237,6 +237,9 @@ transition: all 0.3s ease-in-out 0.3s;
 }
 .list-fiter {
 }
+.filter-block__clear{
+	padding:40px 0px 0px 0px;
+}
 .list-filter__li {
 	width: 100%;
 
@@ -250,6 +253,7 @@ transition: all 0.3s ease-in-out 0.3s;
 }
 .check{
 	position: relative;
+	opacity: 0;
 }
 .check.active{
 	opacity: 0;
@@ -261,11 +265,11 @@ transition: all 0.3s ease-in-out 0.3s;
 	height: 10px;
 	background: #3563E9;
 	border: solid 1px black;
-	opacity: 0;
-	visibility: hidden;
+	/* opacity: 0;
+	visibility: hidden; */
 }
 .checked__image.active{
-	
+	background: #e935a4;
 	opacity: 1;
 	visibility:visible;
 }
