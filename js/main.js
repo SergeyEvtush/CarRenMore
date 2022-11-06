@@ -199,24 +199,40 @@ const renderList = (arrElements, where) => {
 	});
 }
 /*Метод рисующий ползунок цен */
+const renderPriceSlider = () => { 
 
-const filterSlider = document.querySelector('#price');
-const priceValue = document.querySelector('.price-value');
+	const renderSlider = () => { 
+		return `<div class="price-item">
+		<div class="slidecontainer">
+			<input type="range" min="1000" max="6000" value="500" class="price-slider" id="price">
+			<div class="slidecontainer__text">
+				<h4 class="title-car price-value"></h4>
+			</div>
+		</div>
+	</div>`
+	};
 
-function priceValueS() { 
-	priceValue.innerHTML = filterSlider.value;
-	return filterSlider.value
-}
+	const priceSliderContainer = document.querySelector('.price');
+	priceSliderContainer.insertAdjacentHTML("afterbegin", renderSlider());
+	const filterSlider = document.querySelector('#price');
+	const priceValue = document.querySelector('.price-value');
 
-	priceValue.innerHTML = filterSlider.value;
-	filterSlider.addEventListener('input', priceValueS);
+	function priceValueS() { 
+		priceValue.innerHTML = filterSlider.value;
+		return filterSlider.value
+	}
+
+		priceValue.innerHTML = filterSlider.value;
+		filterSlider.addEventListener('input', priceValueS);
+};
+
 
 
 /*Метод фильтрации с пом checkbox */
-const getDataCheckbox = (arr,price=2500) => {
+const getDataCheckbox = (arr) => {
 	arr.forEach((element) => {
 		element.addEventListener('click', (e) => { 
-			
+
 			e.preventDefault();
 
 			arr.forEach((el) => {
@@ -231,7 +247,7 @@ const getDataCheckbox = (arr,price=2500) => {
 			element.classList.toggle('active');
 			element.previousElementSibling.classList.toggle('active');
 			
-			if (element.classList.contains('active')/*  && price <= element.price */) {
+			if (element.classList.contains('active')) {
 
 				orderList.innerHTML = "";
 				renderList(filterList(cars, element.getAttribute('data-type')), orderList);
@@ -243,9 +259,9 @@ const getDataCheckbox = (arr,price=2500) => {
 		});
 	});
 };
-
+	renderPriceSlider();
  	getDataCheckbox(checkboxFilter);
-renderList(cars, orderList);
+	renderList(cars, orderList);
 	
 /*метод удаления классов с элемента */
 const clearAllFilters = (arr) => {
