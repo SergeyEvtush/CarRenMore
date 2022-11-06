@@ -2,14 +2,18 @@
 
 const burger = document.querySelector('.menu-burger');
 const orderList = document.querySelector('.cars__fotos');
-const checkboxFilter=document.querySelectorAll('.check');
-const checkedImage = document.querySelector('.checked__image');
+
+//list-fiter
+ const fiterList=document.querySelector('.filter1'); 
+ const fiterList1=document.querySelector('.filter2'); 
+
+/*примеры машин */
 const mersedes = {
 	model: "Mersedes",
 	type: "Sport",
 	transmission: "Authomatic",
 	fuelType: "Gasoline",
-	capasity: "4 person",
+	capasity: "2 person",
 	year: "2021",
 	price: "100$",
 	rating: "five",
@@ -18,10 +22,10 @@ const mersedes = {
 };
 const porshe = {
 	model: "Porshe",
-	type: "Hatchback",
+	type: "Suv",
 	transmission: "Authomatic",
 	fuelType: "Gasoline",
-	capasity: "4 person",
+	capasity: "2 person",
 	year: "2022",
 	price: "110$",
 	rating: 4,
@@ -30,10 +34,10 @@ const porshe = {
 };
 const honda = {
 	model: "Honda",
-	type: "Hatchback",
+	type: "Mpv",
 	transmission: "Authomatic",
 	fuelType: "Gasoline",
-	capasity: "6 person",
+	capasity: "4 person",
 	year: "2020",
 	price: "100$",
 	rating: 5,
@@ -42,7 +46,19 @@ const honda = {
 };
 const rush = {
 	model: "Suv",
-	type: "Sport",
+	type: "Coup",
+	transmission: "Authomatic",
+	fuelType: "Gasoline",
+	capasity: "4 person",
+	year: "2020",
+	price: "100$",
+	rating: 5,
+	bluetooth: true,
+	foto: "Assets/img/car3.jpg"
+};
+const rush2 = {
+	model: "Suv",
+	type: "Sedan",
 	transmission: "Authomatic",
 	fuelType: "Gasoline",
 	capasity: "6 person",
@@ -52,13 +68,57 @@ const rush = {
 	bluetooth: true,
 	foto: "Assets/img/car3.jpg"
 };
+const rush1 = {
+	model: "Suv",
+	type: "Hatchback",
+	transmission: "Authomatic",
+	fuelType: "Gasoline",
+	capasity: "8 person",
+	year: "2020",
+	price: "100$",
+	rating: 5,
+	bluetooth: true,
+	foto: "Assets/img/car3.jpg"
+};
+/*массив объектов машин */
 const cars = [
-	mersedes, porshe, honda, rush
+	mersedes, porshe, honda, rush,rush1,rush2
 ];
+
 /*событие на иконку бургера */
 burger.addEventListener('click', () => {
 	burger.classList.toggle('active');
 });
+/*!получение ключей из массива объектов*/
+const getData = (carsArr,typeKey) => { 
+	const dataCars = [];
+	carsArr.forEach((element) => { 
+		for (const key in element) {
+			if (key == typeKey) {
+				const el = element[key];
+			dataCars.push(el);			
+			}				
+		}		
+	});
+	return Array.from(new Set(dataCars));
+};
+console.log(getData(cars,'type'));
+/*!создаю разметку для фильтров */
+const createFilters = (filtersArray,where) =>
+{
+	const ul = document.createElement('ul');
+	ul.classList.add('list-fiter');
+	filtersArray.forEach((el) => { 
+		
+		ul.insertAdjacentHTML('afterbegin',`<li class="list-filter__li"><div class="checked__image"></div><input type="checkbox" name="type" id=""${el}"" class="check" data-type="${el}"><label>${el}</label><span class="metriks">(14)</span></li>`);
+	});
+	where.appendChild(ul);
+};
+createFilters(getData(cars, 'type'), fiterList);
+createFilters(getData(cars,'capasity'),fiterList1);
+const checkboxFilter=document.querySelectorAll('.check');
+const checkedImage = document.querySelector('.checked__image');
+
 
 /*разметка для карточек */
 const renderCard = (car) => {
@@ -125,15 +185,7 @@ const renderList = (arrElements, where) => {
 		where.insertAdjacentHTML('afterbegin', renderCard(element));
 	});
 }
-const cl = () => { 
-	return '';
-}
-const clearList = (arrElements, where) => {
-	arrElements = [];
-	return arrElements
- }
-
-
+/*Метод фильтрации с пом checkbox */
 const getDataCheckbox = (arr) => {
 	arr.forEach((element) => {
 		element.addEventListener('click', (e) => { 
@@ -141,18 +193,17 @@ const getDataCheckbox = (arr) => {
 			element.classList.toggle('active');
 			checkedImage.classList.toggle('active');
 			if (checkedImage.classList.contains('active')) {
-				orderList.innerHTML = '';
+				orderList.innerHTML = "";
 				renderList(filterList(cars, element.getAttribute('data-type')), orderList);
 				console.log(filterList(cars, element.getAttribute('data-type')));
-				console.log(orderList);
 			} else { 
+				orderList.innerHTML = "";
 				renderList(cars, orderList);
 			}
 		});
 	});
 };
 
- getDataCheckbox(checkboxFilter);
-
-renderList(cars, orderList);
+ 	getDataCheckbox(checkboxFilter);
+	renderList(cars, orderList);
 
