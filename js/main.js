@@ -30,7 +30,7 @@ const porshe = {
 };
 const honda = {
 	model: "Honda",
-	type: "Suv",
+	type: "Hatchback",
 	transmission: "Authomatic",
 	fuelType: "Gasoline",
 	capasity: "6 person",
@@ -107,23 +107,30 @@ const renderCard = (car) => {
 </div>`
 };
 /*метод рисующий отфильтрованные карточки */
-const filterList = (arrElements, where,filterName) => {
+const filterList = (arrElements, filterName) => {
+	
 	const newArr = arrElements.filter((element) => { 
 		for (const key in element) {
-			if (element[key] == filterName) {
-				where.insertAdjacentHTML('afterbegin', renderCard(element));
+			if (element[key]==filterName) {
+				return element;
 			}
-	}
-	});
+		}		
+	})
+	return newArr;
 }
+
 /*метод рисующий карточки */
 const renderList = (arrElements, where) => { 
 	arrElements.forEach(element => {
 		where.insertAdjacentHTML('afterbegin', renderCard(element));
 	});
 }
+const cl = () => { 
+	return '';
+}
 const clearList = (arrElements, where) => {
 	arrElements = [];
+	return arrElements
  }
 
 
@@ -131,23 +138,21 @@ const getDataCheckbox = (arr) => {
 	arr.forEach((element) => {
 		element.addEventListener('click', (e) => { 
 			e.preventDefault();
-			clearList(cars,orderList);
 			element.classList.toggle('active');
 			checkedImage.classList.toggle('active');
-			if (checkedImage.classList.contains('active')) { 
-				console.log(element.getAttribute('data-type'));
-				clearList(cars, orderList);
-				filterList(cars,orderList,element.getAttribute('data-type')); 
-			
-				
+			if (checkedImage.classList.contains('active')) {
+				orderList.innerHTML = '';
+				renderList(filterList(cars, element.getAttribute('data-type')), orderList);
+				console.log(filterList(cars, element.getAttribute('data-type')));
+				console.log(orderList);
+			} else { 
+				renderList(cars, orderList);
 			}
 		});
 	});
 };
 
  getDataCheckbox(checkboxFilter);
-/* console.log(typeof(getDataCheckbox(checkboxFilter))); */ 
-
 
 renderList(cars, orderList);
 
