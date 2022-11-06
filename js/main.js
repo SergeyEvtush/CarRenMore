@@ -103,19 +103,32 @@ const getData = (carsArr,typeKey) => {
 	});
 	return Array.from(new Set(dataCars));
 };
+/*получение количества машин по заданным фильтрам  для отображения в колонке фильтров*/
+const quantityElements = (objArr, dataType) => {
+	let count = 0;
+	objArr.forEach((element) => { 
+		for (const key in element) {
+			if (element[key] == dataType) {
+				count++;
+					
+			}
+		}
+	});
+	return count;
+};
 
 /*!создаю разметку для фильтров */
-const createFilters = (filtersArray,where) =>
+const createFilters = (filtersArray,where,carArr) =>
 {
 	const ul = document.createElement('ul');
 	ul.classList.add('list-fiter');
 	filtersArray.forEach((el) => { 
-		ul.insertAdjacentHTML('afterbegin',`<li class="list-filter__li"><div class="checked__image"></div><input type="checkbox" name="type" id="${el}" class="check" data-type="${el}"><label>${el}</label><span class="metriks">(14)</span></li>`);
+		ul.insertAdjacentHTML('afterbegin', `<li class="list-filter__li"><div class="checked__image"></div><input type="checkbox" name="type" id="${el}" class="check" data-type="${el}"><label>${el}</label><span class="metriks">(${quantityElements(carArr,el)})</span></li>`);
 	});
 	where.appendChild(ul);
 };
-createFilters(getData(cars, 'type'), fiterList);
-createFilters(getData(cars,'capasity'),fiterList1);
+createFilters(getData(cars, 'type'), fiterList,cars);
+createFilters(getData(cars,'capasity'),fiterList1,cars);
 const checkboxFilter=document.querySelectorAll('.check');
 const checkedImage = document.querySelectorAll('.checked__image');
 
@@ -187,21 +200,15 @@ const renderList = (arrElements, where) => {
 }
 /*Метод фильтрации с пом checkbox */
 const getDataCheckbox = (arr) => {
-
 	arr.forEach((element) => {
 		element.addEventListener('click', (e) => { 
 			e.preventDefault();
 			arr.forEach((el) => {
-				
-				console.log(typeof(el));
-				
 				orderList.innerHTML = "";
-				
 				renderList(filterList(cars, el.getAttribute('data-type')), orderList);
 				el.classList.remove('active');
 				el.previousElementSibling.classList.remove('active');
-			}
-			);
+			});
 			element.classList.toggle('active');
 			element.previousElementSibling.classList.toggle('active');
 			
@@ -218,7 +225,8 @@ const getDataCheckbox = (arr) => {
 };
 
  	getDataCheckbox(checkboxFilter);
-	renderList(cars, orderList);
+renderList(cars, orderList);
+	
 /*метод удаления классов с элемента */
 const clearAllFilters = (arr) => {
 	arr.forEach((element) => { 

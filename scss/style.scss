@@ -261,17 +261,21 @@ transition: all 0.3s ease-in-out 0.3s;
 }
 .checked__image{
 	position: absolute;
-	width: 10px;
-	height: 10px;
-	background: #3563E9;
-	border: solid 1px black;
-	/* opacity: 0;
-	visibility: hidden; */
+	width: 20px;
+	height: 20px;
+	border-radius: 5px;
+	border: solid 1px rgb(23, 121, 67);
 }
 .checked__image.active{
-	background: #e935a4;
+	background: url(../assets/img/checkbox.png)center;
+	background-repeat: no-repeat;
+	background-size: contain;
 	opacity: 1;
 	visibility:visible;
+	border: none;
+}
+.list-filter__li>label{
+	margin:0px 0px 0px 10px;
 }
 .metriks {
 }
