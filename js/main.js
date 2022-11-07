@@ -181,9 +181,10 @@ const filterList = (arrElements, filterName) => {
 }
 
 /*метод рисующий карточки */
-const renderList = (arrElements, where) => { 
+const renderList = (arrElements, containerInViewport) => {
+	
 	arrElements.forEach(element => {
-		where.insertAdjacentHTML('afterbegin', renderCard(element));
+		containerInViewport.insertAdjacentHTML('afterbegin', renderCard(element));
 	});
 }
 /*Метод рисующий ползунок цен */
@@ -217,7 +218,8 @@ const renderPriceSlider = () => {
 
 
 /*Метод фильтрации с пом checkbox */
-const getDataCheckbox = (arrayOfElementsPage,arrayObjects,containerInViewport) => {
+const getDataCheckbox = (arrayOfElementsPage, arrayObjects, containerInViewport) => {
+	 
 	arrayOfElementsPage.forEach((element) => {
 		element.addEventListener('click', (e) => { 
 
