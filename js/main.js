@@ -1,11 +1,6 @@
 "use strict"
 
-const burger = document.querySelector('.menu-burger');
-const orderList = document.querySelector('.cars__fotos');
-const clearFilters = document.querySelector('.clear-filters');
-//list-fiter
- const fiterList=document.querySelector('.filter1'); 
- const fiterList1=document.querySelector('.filter2'); 
+
 
 /*примеры машин */
 const mersedes = {
@@ -84,12 +79,8 @@ const rush1 = {
 const cars = [
 	mersedes, porshe, honda, rush,rush1,rush2
 ];
-/*событие на кнопку "clear-filters" */
 
-/*событие на иконку бургера */
-burger.addEventListener('click', () => {
-	burger.classList.toggle('active');
-});
+
 /*!получение ключей из массива объектов*/
 const getData = (carsArr,typeKey) => { 
 	const dataCars = [];
@@ -127,10 +118,7 @@ const createFilters = (filtersArray,where,carArr) =>
 	});
 	where.appendChild(ul);
 };
-createFilters(getData(cars, 'type'), fiterList,cars);
-createFilters(getData(cars,'capasity'),fiterList1,cars);
-const checkboxFilter=document.querySelectorAll('.check');
-const checkedImage = document.querySelectorAll('.checked__image');
+
 
 
 /*разметка для карточек */
@@ -229,16 +217,16 @@ const renderPriceSlider = () => {
 
 
 /*Метод фильтрации с пом checkbox */
-const getDataCheckbox = (arr) => {
-	arr.forEach((element) => {
+const getDataCheckbox = (arrayOfElementsPage,arrayObjects,containerInViewport) => {
+	arrayOfElementsPage.forEach((element) => {
 		element.addEventListener('click', (e) => { 
 
 			e.preventDefault();
 
-			arr.forEach((el) => {
+			arrayOfElementsPage.forEach((el) => {
 
-				orderList.innerHTML = "";
-				renderList(filterList(cars, el.getAttribute('data-type')), orderList);
+				containerInViewport.innerHTML = "";
+				renderList(filterList(arrayObjects, el.getAttribute('data-type')), containerInViewport);
 				el.classList.remove('active');
 				el.previousElementSibling.classList.remove('active');
 
@@ -249,32 +237,47 @@ const getDataCheckbox = (arr) => {
 			
 			if (element.classList.contains('active')) {
 
-				orderList.innerHTML = "";
-				renderList(filterList(cars, element.getAttribute('data-type')), orderList);
+				containerInViewport.innerHTML = "";
+				renderList(filterList(arrayObjects, element.getAttribute('data-type')), containerInViewport);
 
 			} else { 
-				orderList.innerHTML = "";
-				renderList(cars, orderList);
+				containerInViewport.innerHTML = "";
+				renderList(arrayObjects, containerInViewport);
 			}
 		});
 	});
 };
-	renderPriceSlider();
- 	getDataCheckbox(checkboxFilter);
-	renderList(cars, orderList);
 	
 /*метод удаления классов с элемента */
-const clearAllFilters = (arr) => {
-	arr.forEach((element) => { 
+const clearAllFilters = (arrayFilters) => {
+	arrayFilters.forEach((element) => { 
 		element.classList.remove('active');
 	});
 };
-/*очистка фильтров по клику */
-clearFilters.addEventListener('click', (e) => {
-	e.preventDefault();
-	clearAllFilters(checkboxFilter);
-	clearAllFilters(checkedImage);
-	orderList.innerHTML = "";
+
+
+const renderPage = () => { 
+	const burger = document.querySelector('.menu-burger');
+	const orderList = document.querySelector('.cars__fotos');
+	const clearFilters = document.querySelector('.clear-filters');
+	 const fiterList=document.querySelector('.filter1'); 
+	 const fiterList1=document.querySelector('.filter2');
+	 createFilters(getData(cars, 'type'), fiterList,cars);
+	 createFilters(getData(cars,'capasity'),fiterList1,cars);
+	 const checkboxFilter=document.querySelectorAll('.check');
+	 const checkedImage = document.querySelectorAll('.checked__image');
+	 renderPriceSlider();
+ 	getDataCheckbox(checkboxFilter,cars,orderList);
 	renderList(cars, orderList);
-	 });
-	 
+	burger.addEventListener('click', () => {
+	burger.classList.toggle('active');
+});
+	clearFilters.addEventListener('click', (e) => {
+		e.preventDefault();
+		clearAllFilters(checkboxFilter);
+		clearAllFilters(checkedImage);
+		orderList.innerHTML = "";
+		renderList(cars, orderList);
+		 });
+} 
+renderPage();

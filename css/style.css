@@ -293,6 +293,8 @@ body {
 }
 
 .check {
+  width: 20px;
+  height: 20px;
   position: relative;
   opacity: 0;
 }
