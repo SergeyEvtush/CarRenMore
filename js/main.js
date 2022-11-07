@@ -82,7 +82,7 @@ const cars = [
 
 
 /*!получение ключей из массива объектов*/
-const getData = (carsArr,typeKey) => { 
+const getKey = (carsArr,typeKey) => { 
 	const dataCars = [];
 	carsArr.forEach((element) => { 
 		for (const key in element) {
@@ -168,7 +168,7 @@ const renderCard = (car) => {
 </div>`
 };
 /*метод рисующий отфильтрованные карточки */
-const filterList = (arrElements, filterName) => {
+const renderfilterList = (arrElements, filterName) => {
 	
 	const newArr = arrElements.filter((element) => { 
 		for (const key in element) {
@@ -218,7 +218,7 @@ const renderPriceSlider = () => {
 
 
 /*Метод фильтрации с пом checkbox */
-const getDataCheckbox = (arrayOfElementsPage, arrayObjects, containerInViewport) => {
+const setFiltr = (arrayOfElementsPage, arrayObjects, containerInViewport) => {
 	 
 	arrayOfElementsPage.forEach((element) => {
 		element.addEventListener('click', (e) => { 
@@ -228,7 +228,7 @@ const getDataCheckbox = (arrayOfElementsPage, arrayObjects, containerInViewport)
 			arrayOfElementsPage.forEach((el) => {
 
 				containerInViewport.innerHTML = "";
-				renderList(filterList(arrayObjects, el.getAttribute('data-type')), containerInViewport);
+				renderList(renderfilterList(arrayObjects, el.getAttribute('data-type')), containerInViewport);
 				el.classList.remove('active');
 				el.previousElementSibling.classList.remove('active');
 
@@ -240,7 +240,7 @@ const getDataCheckbox = (arrayOfElementsPage, arrayObjects, containerInViewport)
 			if (element.classList.contains('active')) {
 
 				containerInViewport.innerHTML = "";
-				renderList(filterList(arrayObjects, element.getAttribute('data-type')), containerInViewport);
+				renderList(renderfilterList(arrayObjects, element.getAttribute('data-type')), containerInViewport);
 
 			} else { 
 				containerInViewport.innerHTML = "";
@@ -251,7 +251,7 @@ const getDataCheckbox = (arrayOfElementsPage, arrayObjects, containerInViewport)
 };
 	
 /*метод удаления классов с элемента */
-const clearAllFilters = (arrayFilters) => {
+const clearAllClasses = (arrayFilters) => {
 	arrayFilters.forEach((element) => { 
 		element.classList.remove('active');
 	});
@@ -264,20 +264,20 @@ const renderPage = () => {
 	const clearFilters = document.querySelector('.clear-filters');
 	 const fiterList=document.querySelector('.filter1'); 
 	 const fiterList1=document.querySelector('.filter2');
-	 createFilters(getData(cars, 'type'), fiterList,cars);
-	 createFilters(getData(cars,'capasity'),fiterList1,cars);
+	 createFilters(getKey(cars, 'type'), fiterList,cars);
+	 createFilters(getKey(cars,'capasity'),fiterList1,cars);
 	 const checkboxFilter=document.querySelectorAll('.check');
 	 const checkedImage = document.querySelectorAll('.checked__image');
 	 renderPriceSlider();
- 	getDataCheckbox(checkboxFilter,cars,orderList);
+ 	setFiltr(checkboxFilter,cars,orderList);
 	renderList(cars, orderList);
 	burger.addEventListener('click', () => {
 	burger.classList.toggle('active');
 });
 	clearFilters.addEventListener('click', (e) => {
 		e.preventDefault();
-		clearAllFilters(checkboxFilter);
-		clearAllFilters(checkedImage);
+		clearAllClasses(checkboxFilter);
+		clearAllClasses(checkedImage);
 		orderList.innerHTML = "";
 		renderList(cars, orderList);
 		 });
