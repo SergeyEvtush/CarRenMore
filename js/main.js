@@ -168,17 +168,42 @@ const renderCard = (car) => {
 </div>`
 };
 /*метод рисующий отфильтрованные карточки */
-const renderfilterList = (arrElements, filterName) => {
+const renderfilterList = (arrCars, filterName) => {
 	
-	const newArr = arrElements.filter((element) => { 
+	const newArr = arrCars.filter((element) => { 
+		
 		for (const key in element) {
-			if (element[key]==filterName) {
+			
+			if (element[key] === filterName) {
+
 				return element;
 			}
+		
+			
 		}		
 	})
+
 	return newArr;
 }
+const filterListPrice = (arrCars, price) => {
+	
+	const newArr = arrCars.filter((element) => { 
+		
+		for (const key in element) {
+			
+			if (key === 'price'&&element[key]<=price) {
+
+				return element;
+			}
+		
+			
+		}		
+	})
+
+	return newArr;
+}
+
+
 
 /*метод рисующий карточки */
 const renderList = (arrElements, containerInViewport) => {
@@ -188,12 +213,12 @@ const renderList = (arrElements, containerInViewport) => {
 	});
 }
 /*Метод рисующий ползунок цен */
-const renderPriceSlider = () => { 
+const renderPriceSlider = (priCe) => { 
 
-	const renderSlider = () => { 
+	const renderSlider=()=> { 
 		return `<div class="price-item">
 		<div class="slidecontainer">
-			<input type="range" min="1000" max="6000" value="500" class="price-slider" id="price">
+			<input type="range" min="1000" max="6000" value="500" class="price-slider" id="price" data-type="1000">
 			<div class="slidecontainer__text">
 				<h4 class="title-car price-value"></h4>
 			</div>
@@ -205,20 +230,28 @@ const renderPriceSlider = () => {
 	priceSliderContainer.insertAdjacentHTML("afterbegin", renderSlider());
 	const filterSlider = document.querySelector('#price');
 	const priceValue = document.querySelector('.price-value');
+	const inputSlider = document.querySelector('.price-slider');
+	
 
 	function priceValueS() { 
 		priceValue.innerHTML = filterSlider.value;
+		
+		SetDataAtribute(filterSlider, filterSlider.value, 'data-type');
 		return filterSlider.value
 	}
 
 		priceValue.innerHTML = filterSlider.value;
-		filterSlider.addEventListener('input', priceValueS);
+	filterSlider.addEventListener('input', priceValueS);
+	
 };
-
+function SetDataAtribute(where, data,dataType) {
+	where.setAttribute(dataType, data);
+ };
 
 
 /*Метод фильтрации с пом checkbox */
 const setFiltr = (arrayOfElementsPage, arrayObjects, containerInViewport) => {
+	 
 	 
 	arrayOfElementsPage.forEach((element) => {
 		element.addEventListener('click', (e) => { 
@@ -229,6 +262,7 @@ const setFiltr = (arrayOfElementsPage, arrayObjects, containerInViewport) => {
 
 				containerInViewport.innerHTML = "";
 				renderList(renderfilterList(arrayObjects, el.getAttribute('data-type')), containerInViewport);
+
 				el.classList.remove('active');
 				el.previousElementSibling.classList.remove('active');
 
@@ -249,37 +283,64 @@ const setFiltr = (arrayOfElementsPage, arrayObjects, containerInViewport) => {
 		});
 	});
 };
-	
+
+
 /*метод удаления классов с элемента */
 const clearAllClasses = (arrayFilters) => {
 	arrayFilters.forEach((element) => { 
 		element.classList.remove('active');
 	});
 };
+/*создание кнопки -ссылки */
+const createLinkButtonInContainer = (classButton, container, textInButton,hrefText="#") => {
+	
+	container.insertAdjacentHTML("afterbegin", `<a href="${hrefText}" class="rent-btn ${classButton} btn-rent-link" >${textInButton}</a>`);
+
+ }
 
 
 const renderPage = () => { 
+	const buttonContainer = document.querySelector('.button-container');
+	const buttonFilterPriceContainer = document.querySelector('.button-filter-container');
 	const burger = document.querySelector('.menu-burger');
 	const orderList = document.querySelector('.cars__fotos');
+	createLinkButtonInContainer(`rent-btn price-filter btn-rent-link`,buttonFilterPriceContainer,'Price Filter');
+	createLinkButtonInContainer(`rent-btn clear-filters btn-rent-link`, buttonContainer, 'Clear-filter');
+	renderPriceSlider();
+	const priceSliderInput = document.querySelector('#price');
+	const priceFilterButton = document.querySelector('.price-filter');
+	priceFilterButton.addEventListener('click', (e) => {
+		e.preventDefault()
+		orderList.innerHTML = "";
+		renderList(filterListPrice(cars, 2000), orderList)
+		
+	 });
 	const clearFilters = document.querySelector('.clear-filters');
 	 const fiterList=document.querySelector('.filter1'); 
-	 const fiterList1=document.querySelector('.filter2');
+	const fiterList1 = document.querySelector('.filter2');
+	
 	 createFilters(getKey(cars, 'type'), fiterList,cars);
 	 createFilters(getKey(cars,'capasity'),fiterList1,cars);
 	 const checkboxFilter=document.querySelectorAll('.check');
 	 const checkedImage = document.querySelectorAll('.checked__image');
-	 renderPriceSlider();
- 	setFiltr(checkboxFilter,cars,orderList);
+	 
+	setFiltr(checkboxFilter, cars, orderList);
+	
 	renderList(cars, orderList);
 	burger.addEventListener('click', () => {
 	burger.classList.toggle('active');
-});
+	});
+	
+
+
+
 	clearFilters.addEventListener('click', (e) => {
 		e.preventDefault();
 		clearAllClasses(checkboxFilter);
 		clearAllClasses(checkedImage);
 		orderList.innerHTML = "";
 		renderList(cars, orderList);
-		 });
+	});
+
 } 
 renderPage();
