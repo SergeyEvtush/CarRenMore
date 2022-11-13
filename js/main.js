@@ -212,52 +212,76 @@ const renderList = (arrElements, containerInViewport) => {
 		containerInViewport.insertAdjacentHTML('afterbegin', renderCard(element));
 	});
 }
-/*Метод рисующий ползунок цен */
-const renderPriceSlider = (priCe) => { 
 
-	const renderSlider=()=> { 
-		return `<div class="price-item">
-		<div class="slidecontainer">
-			<input type="range" min="1000" max="6000" value="500" class="price-slider" id="price" data-type="1000">
-			<div class="slidecontainer__text">
-				<h4 class="title-car price-value"></h4>
-			</div>
+
+const renderSlider=()=> { 
+	return `<div class="price-item">
+	<div class="slidecontainer">
+		<input type="range" min="1000" max="6000" value="500" class="price-slider" id="price" data-type="1000">
+		<div class="slidecontainer__text">
+			<h4 class="title-car price-value"></h4>
 		</div>
-	</div>`
-	};
-
-	const priceSliderContainer = document.querySelector('.price');
-	priceSliderContainer.insertAdjacentHTML("afterbegin", renderSlider());
-	const filterSlider = document.querySelector('#price');
-	const priceValue = document.querySelector('.price-value');
-	const inputSlider = document.querySelector('.price-slider');
-	
-
-	function priceValueS() { 
-		priceValue.innerHTML = filterSlider.value;
-		
-		SetDataAtribute(filterSlider, filterSlider.value, 'data-type');
-		return filterSlider.value
-	}
-
-		priceValue.innerHTML = filterSlider.value;
-	filterSlider.addEventListener('input', priceValueS);
-	
+	</div>
+</div>`
 };
+
+/*Метод рисующий ползунок цен */
+const renderPriceSlider = (containerSelector,inputSelector,textSelector) => { 
+	
+	const container = document.querySelector(containerSelector);//контайнер для ползунка цен
+	container.insertAdjacentHTML("afterbegin", renderSlider());//вставляю разметку для ползунка цен
+	const inputPrice = container.querySelector(inputSelector);//инпут в разметке
+	const textPrice=container.querySelector(textSelector);//тект на экране
+	
+	textPrice.innerHTML = inputPrice.value;//рисуем цену 
+	inputPrice.addEventListener('input', () => {
+		priceValueS('#price','.price-value')
+	});//обновляем цеену по инпуту
+};
+
+//функция получения цены и отображения ее на экране
+function priceValueS(filterSliderClass,priceValueSelector) { 
+	const filterSlider = document.querySelector(filterSliderClass);//получаем элемент инпут по переданному селектору
+	const priceValue=document.querySelector(priceValueSelector);//получаем элемент куду будем выводить значение из инпута
+	let val = getDataValue(filterSliderClass);//получем значения из инпута
+	priceValue.innerHTML = val;//записываем эти значения в тектовый элемент на экране
+	SetDataAtribute(filterSlider, val, 'data-type');
+	return val;
+}
+
+//назначаю в атрибут элемента данные
 function SetDataAtribute(where, data,dataType) {
 	where.setAttribute(dataType, data);
- };
+};
+
+ //получаю значение элемента и возвращаю его
+ function getDataValue(elementClass) {
+	const element=document.querySelector(elementClass)
+		return element.value;
+	 }
+function setStartValue(elemClass,val) { 
+	const elem = document.querySelector(elemClass);
+	return elem.value = val;
+
+}
+function innerStartValue(elemClass,val) { 
+	const elem = document.querySelector(elemClass);
+	elem.innerHTML = val;
+}
+
 
 
 /*Метод фильтрации с пом checkbox */
-const setFiltr = (arrayOfElementsPage, arrayObjects, containerInViewport) => {
+const setFiltr = (arrayOfElementsPage, arrayObjects, containerInViewport,inputPriceSliderClass,textInputPriceClass) => {
 	 
-	 
+	const inputPriceSlider = document.querySelector(inputPriceSliderClass);
+	const textInputPrice = document.querySelector(textInputPriceClass);
 	arrayOfElementsPage.forEach((element) => {
 		element.addEventListener('click', (e) => { 
-
+			
 			e.preventDefault();
-
+			inputPriceSlider.value = 6000;
+			textInputPrice.innerHTML=""
 			arrayOfElementsPage.forEach((el) => {
 
 				containerInViewport.innerHTML = "";
@@ -286,7 +310,8 @@ const setFiltr = (arrayOfElementsPage, arrayObjects, containerInViewport) => {
 
 
 /*метод удаления классов с элемента */
-const clearAllClasses = (arrayFilters) => {
+const clearAllClasses = (arrayFilters,inputPriceSliderClass,textInputPriceClass) => {
+	
 	arrayFilters.forEach((element) => { 
 		element.classList.remove('active');
 	});
@@ -298,7 +323,7 @@ const createLinkButtonInContainer = (classButton, container, textInButton,hrefTe
 
  }
 
-
+/*функция рисующая страничку */
 const renderPage = () => { 
 	const buttonContainer = document.querySelector('.button-container');
 	const buttonFilterPriceContainer = document.querySelector('.button-filter-container');
@@ -306,13 +331,14 @@ const renderPage = () => {
 	const orderList = document.querySelector('.cars__fotos');
 	createLinkButtonInContainer(`rent-btn price-filter btn-rent-link`,buttonFilterPriceContainer,'Price Filter');
 	createLinkButtonInContainer(`rent-btn clear-filters btn-rent-link`, buttonContainer, 'Clear-filter');
-	renderPriceSlider();
-	const priceSliderInput = document.querySelector('#price');
-	const priceFilterButton = document.querySelector('.price-filter');
+	renderPriceSlider('.price','#price','.price-value');
+	 
+	 const priceFilterButton = document.querySelector('.price-filter');
 	priceFilterButton.addEventListener('click', (e) => {
-		e.preventDefault()
+		clearAllClasses(checkboxFilter);
+		clearAllClasses(checkedImage);
 		orderList.innerHTML = "";
-		renderList(filterListPrice(cars, 2000), orderList)
+		renderList(filterListPrice(cars, getDataValue('#price')),orderList);
 		
 	 });
 	const clearFilters = document.querySelector('.clear-filters');
@@ -324,7 +350,7 @@ const renderPage = () => {
 	 const checkboxFilter=document.querySelectorAll('.check');
 	 const checkedImage = document.querySelectorAll('.checked__image');
 	 
-	setFiltr(checkboxFilter, cars, orderList);
+	setFiltr(checkboxFilter, cars, orderList,'#price','.price-value');
 	
 	renderList(cars, orderList);
 	burger.addEventListener('click', () => {
@@ -336,6 +362,8 @@ const renderPage = () => {
 
 	clearFilters.addEventListener('click', (e) => {
 		e.preventDefault();
+		setStartValue('#price', 1000);
+		innerStartValue('.price-value','1000')
 		clearAllClasses(checkboxFilter);
 		clearAllClasses(checkedImage);
 		orderList.innerHTML = "";
