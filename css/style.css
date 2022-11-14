@@ -166,6 +166,7 @@ body {
   line-height: 1.5;
   padding: 11px 25px 11px 35px;
   background: #fff;
+  position: relative;
 }
 
 .searching-input:focus {
@@ -185,6 +186,18 @@ body {
   top: 25%;
   background: url(../assets/img/filter.svg) center center no-repeat;
   right: 5%;
+}
+
+.elementsList {
+  position: absolute;
+  margin: 0 auto;
+  left: 30%;
+}
+
+.elementsList > li {
+  text-align: center;
+  margin: 0 auto;
+  cursor: pointer;
 }
 
 .header-block__menu {
