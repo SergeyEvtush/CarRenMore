@@ -173,12 +173,12 @@ body {
   outline: none;
 }
 
-.filter-btn {
+.clear-filter-btn {
   background: none;
   padding: 0px 20px 0px 0px;
 }
 
-.filter-btn::before {
+.clear-filter-btn::before {
   content: "";
   position: absolute;
   width: 25px;
