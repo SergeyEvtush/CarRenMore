@@ -327,7 +327,9 @@ function showElement(str, carsArray, ulClass,inputClass) {
 			
 		} 
 		if (str.toUpperCase() == car.toUpperCase()) { 
+			elem.innerHTML='';
 			serchInput.value = car;
+			elem.insertAdjacentHTML('afterbegin', `<li class="ul-item"><h3 class="title-car">${car}</h3></li>`);
 		}
 
 	});
