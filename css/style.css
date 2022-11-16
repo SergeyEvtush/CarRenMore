@@ -147,17 +147,16 @@ body {
   transition: all 0.5s ease 0.5s;
 }
 
-.input-wraper::before {
-  content: "";
-  position: absolute;
-  width: 25px;
-  height: 25px;
-  top: 25%;
-  background: url(../assets/img/search-normal.png) center center no-repeat;
-  margin: 0px 0px 0px 10px;
-  z-index: 20;
-}
-
+/* .input-wraper::before{
+	content: '';
+	position: absolute;
+	width: 25px;
+	height: 25px;
+	top: 25%;
+	background:url(../assets/img/search-normal.png)center center no-repeat;
+	margin:0px 0px 0px 10px;
+	z-index: 20;
+} */
 .searching-input {
   border-radius: 28px;
   font-size: 16px;
@@ -173,19 +172,29 @@ body {
   outline: none;
 }
 
-.clear-filter-btn {
+.clear-filter-btn, .serch-btn {
   background: none;
   padding: 0px 20px 0px 0px;
 }
 
-.clear-filter-btn::before {
+.clear-filter-btn::before, .serch-btn::before {
   content: "";
   position: absolute;
   width: 25px;
   height: 25px;
+  cursor: pointer;
+}
+
+.clear-filter-btn::before {
   top: 25%;
   background: url(../assets/img/filter.svg) center center no-repeat;
   right: 5%;
+}
+
+.serch-btn::before {
+  top: 25%;
+  background: url(../assets/img/search-normal.png) center center no-repeat;
+  left: 1%;
 }
 
 .elementsList {

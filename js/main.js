@@ -17,7 +17,7 @@ const mersedes = {
 };
 const porshe = {
 	model: "Porshe",
-	type: "Suv",
+	type: "Sport",
 	transmission: "Authomatic",
 	fuelType: "Gasoline",
 	capasity: "2 person",
@@ -77,7 +77,7 @@ const rush1 = {
 };
 const MersGl = {
 	model: "Mersedes Gl",
-	type: "Hatchback",
+	type: "OffRoad",
 	transmission: "Authomatic",
 	fuelType: "Gasoline",
 	capasity: "8 person",
@@ -106,6 +106,7 @@ const getKey = (carsArr, typeKey) => {
 	});
 	return Array.from(new Set(dataCars));
 };
+
 /*получение количества машин по заданным фильтрам  для отображения в колонке фильтров*/
 const quantityElements = (objArr, dataType) => {
 	let count = 0;
@@ -179,7 +180,7 @@ const renderCard = (car) => {
 </div>
 </div>`
 };
-/*метод рисующий отфильтрованные карточки */
+/*метод возвращающий отфильтрованные машины по буквенному значению */
 const renderfilterList = (arrCars, filterName) => {
 
 	const newArr = arrCars.filter((element) => {
@@ -197,6 +198,9 @@ const renderfilterList = (arrCars, filterName) => {
 
 	return newArr;
 }
+
+
+//функция возвращающая массив созданные по цифровому значению необходима для фильтрайции по цене
 const filterListPrice = (arrCars, price) => {
 
 	const newArr = arrCars.filter((element) => {
@@ -271,12 +275,12 @@ function getDataValue(elementClass) {
 	const element = document.querySelector(elementClass)
 	return element.value;
 }
-
+//функция установки стартового значения по цене
 function setStartValue(elemClass, val) {
 	const elem = document.querySelector(elemClass);
 	return elem.value = val;
 }
-
+//функция вписания стартового значения цены для фильтров по цене
 function innerStartValue(elemClass, val) {
 	const elem = document.querySelector(elemClass);
 	elem.innerHTML = val;
@@ -304,50 +308,93 @@ const getDataInputSerch = (containerClass,inputSerchClass) => {
 }
  
  
-const inp=document.getElementById('serch')
+
  //прослушиваем инпут на ввод
-inp.addEventListener('input', () => {
-	showElement(getDataInputSerch('.searching-form__input', '#serch').toUpperCase(), getKey(cars, 'model'), '.elementsList','.searching-input')
+ const inp= document.querySelector('#serch').addEventListener('input', (e) => {
+	e.preventDefault();
+	clearInput('.searching-form__input', '.elementsList');
+	showElement(getDataInputSerch('.searching-form__input', '#serch').toUpperCase(),
+		getKey(cars, 'model'), '.elementsList', '.searching-input');
+ 
 });
+
+
  //прослушиваем инпут на нажатие кнопки del
-inp.addEventListener("keydown", (e) => {
-	e.code == 'Backspace' && e.key == 'Backspace' && inp.value.length >= 3 ?
+ const keyDown=document.addEventListener("keydown", (e) => {
+	e.code == 'Backspace' && e.key == 'Backspace' /* && inp.value.length >= 3 */ ?
 		clearInput('.searching-input', '.elementsList') : console.log('enter letter');
-	
+		
 });
+
 /*функция вывода элемента под инпутом*/
 function showElement(str, carsArray, ulClass,inputClass) {
 	const elem = document.querySelector(ulClass);
 	const serchInput = document.querySelector(inputClass);
 	carsArray.map((car) => { 
 		
-		if (str.toUpperCase() == car.substring(0, 3).toUpperCase()) {
-			
-			elem.insertAdjacentHTML('afterbegin', `<li class="ul-item"><h3 class="title-car">${car}</h3></li>`);
+		if (str.toUpperCase() == car.substring(0, 3).toUpperCase()||str.toUpperCase() == car.toUpperCase()) {
+		
+			elem.insertAdjacentHTML('afterbegin', `<li class="ul-item"><a href="#" class="title-car">${car}</a></li>`);
 			
 		} 
 		if (str.toUpperCase() == car.toUpperCase()) { 
 			elem.innerHTML='';
 			serchInput.value = car;
-			elem.insertAdjacentHTML('afterbegin', `<li class="ul-item"><h3 class="title-car">${car}</h3></li>`);
+			elem.insertAdjacentHTML('afterbegin', `<li class="ul-item"><a href="#" class="title-car">${car}</a></li>`);
+			console.log('work');
 		}
-
+	});
+	const ulItem = elem.querySelectorAll('.ul-item');
+	ulItem.forEach((element) => { 
+		element.addEventListener('click', () => {
+			serchInput.value =element.firstChild.innerText ; 
+			elem.style.display="none"
+		});
 	});
 }
 
+//функция показа всего массива машин по ключу
+function showArray(carsArray, ulClass) { 
+	const elem = document.querySelector(ulClass);
+	carsArray.forEach((car) => { 
+		elem.insertAdjacentHTML('afterbegin', `<li class="ul-item"><a href="#" class="title-car">${car}</a></li>`);
+	});
+}
+
+
 //функция клика по кнопке очистки инпута
-const clearBtn = document.querySelector('.clear-filter-btn').addEventListener('click', () => { 
+const clearBtn = document.querySelector('.clear-filter-btn').addEventListener('click', (e) => { 
+	const form = document.querySelector('#form');
+	form.reset();
 	clearInput('.searching-input','.elementsList')
 });
-//функция очистки инпута
-function clearInput(classInput,ulClass) { 
+
+
+//функция очистки инпута и фильтра
+function clearInput(classInput, ulClass) { 	
 	const clearingInput = document.querySelector(classInput);
 	const ul = document.querySelector(ulClass);
 	if (clearingInput.value) { 
 		clearingInput.value = '';
-		ul.innerHTML='';
+		ul.innerHTML = '';
 	}
+	const orderList = document.querySelector('.cars__fotos');
+	orderList.innerHTML = '';
+	renderList(cars, orderList);
 }
+
+
+//клик по кнопке поиск
+const serchClick = document.querySelector('#serch-btn').addEventListener('click', () => {
+	const inp = document.querySelector('.searching-input');
+	if (inp.value) {
+		
+		const container = document.querySelector('.cars__fotos')
+		container.innerHTML = "";
+		renderList(renderfilterList(cars, inp.value), container);//'.cars__fotos'
+	 }
+
+ });
 
 
 
@@ -390,7 +437,7 @@ const setFiltr = (arrayOfElementsPage, arrayObjects, containerInViewport, inputP
 
 
 /*метод удаления классов с элемента */
-const clearAllClasses = (arrayFilters, inputPriceSliderClass, textInputPriceClass) => {
+const clearAllClasses = (arrayFilters) => {
 
 	arrayFilters.forEach((element) => {
 		element.classList.remove('active');
