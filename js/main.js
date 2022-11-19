@@ -4,6 +4,7 @@
 
 /*примеры машин */
 const mersedes = {
+	id: "car1",
 	model: "Mersedes",
 	type: "Sport",
 	transmission: "Authomatic",
@@ -16,6 +17,7 @@ const mersedes = {
 	foto: "Assets/img/car.jpg"
 };
 const porshe = {
+	id: "car2",
 	model: "Porshe",
 	type: "Sport",
 	transmission: "Authomatic",
@@ -28,6 +30,7 @@ const porshe = {
 	foto: "Assets/img/car1.jpg"
 };
 const honda = {
+	id: "car3",
 	model: "Honda",
 	type: "Mpv",
 	transmission: "Authomatic",
@@ -40,6 +43,7 @@ const honda = {
 	foto: "Assets/img/car2.jpg"
 };
 const rush = {
+	id: "car4",
 	model: "Suv",
 	type: "Coup",
 	transmission: "Authomatic",
@@ -52,6 +56,7 @@ const rush = {
 	foto: "Assets/img/car3.jpg"
 };
 const rush2 = {
+	id: "car5",
 	model: "Suv",
 	type: "Sedan",
 	transmission: "Authomatic",
@@ -64,6 +69,7 @@ const rush2 = {
 	foto: "Assets/img/car3.jpg"
 };
 const rush1 = {
+	id: "car6",
 	model: "Suv",
 	type: "Hatchback",
 	transmission: "Authomatic",
@@ -76,6 +82,7 @@ const rush1 = {
 	foto: "Assets/img/car3.jpg"
 };
 const MersGl = {
+	id: "car7",
 	model: "Mersedes Gl",
 	type: "OffRoad",
 	transmission: "Authomatic",
@@ -121,6 +128,29 @@ const quantityElements = (objArr, dataType) => {
 	return count;
 };
 
+const createPopup = (car) => { 
+	return `<div class="popupp-wraper _container">
+	<div class="popup-body" id="rental-popup">
+		<div class="popup-close">
+			<a href="#" class="close-link"></a>
+		</div>
+		<div class="popup-body__title">
+			<h2 class="item-title">${car.model}</h2>
+		</div>
+		<div class="popup-body__foto">
+			<div class="popup-slider">
+				<img src="${car.foto}" alt="car">
+			</div>
+		</div>
+		<div class="popup-body__description">
+		</div>
+	</div>
+</div>`;
+};
+
+
+
+
 /*!создаю разметку для фильтров */
 const createFilters = (filtersArray, conatinerFiltersClass, carArr) => {
 	const containerFilters = document.querySelector(conatinerFiltersClass);
@@ -151,7 +181,7 @@ const renderCard = (car) => {
 			<img src="assets/img/heart.svg" alt="heart">
 		</div>
 	</div>
-	<div class="cars-item__foto">
+	<div class="cars-item__foto" id="${car.id}">
 		<img src="${car.foto}" alt="car">
 	</div>
 	<div class="cars-item__description">
@@ -171,7 +201,7 @@ const renderCard = (car) => {
 		</div>
 		<div class="order-button cars-item__button">
 			<div class="rent-btn">
-				<a href="#" class="btn-rent-link">
+				<a href="#" class="btn-rent-link" data-name="${car.model}">
 					Rent Now
 				</a>
 			</div>
@@ -180,53 +210,53 @@ const renderCard = (car) => {
 </div>
 </div>`
 };
-/*метод возвращающий отфильтрованные машины по буквенному значению */
-const renderfilterList = (arrCars, filterName) => {
-
-	const newArr = arrCars.filter((element) => {
-
-		for (const key in element) {
-
-			if (element[key] === filterName) {
-
-				return element;
+/*метод возвращающий отфильтрованные машины по буквенному значению,или id,или цене */
+const renderfilterList = (arrCars, filterName='',idCar='',price='') => {
+	if (filterName != '') {
+		const newArr = arrCars.filter((element) => {
+			for (const key in element) {
+					if (element[key] ==filterName[0].toUpperCase()+filterName.slice(1)){
+						return element;
+				}
+				
 			}
+		});
+		return newArr;
+	}
+	if (idCar != '') { 
+		const car = arrCars.find(carId => carId.id == idCar);
+		return car;
+	}
+	if (price != '') {
+		const newArrPrice = arrCars.filter((element) => {
 
-
-		}
-	})
-
-	return newArr;
-}
-
-
-//функция возвращающая массив созданные по цифровому значению необходима для фильтрайции по цене
-const filterListPrice = (arrCars, price) => {
-
-	const newArr = arrCars.filter((element) => {
-
-		for (const key in element) {
-
-			if (key === 'price' && element[key] <= price) {
-
-				return element;
+			for (const key in element) {
+	
+				if (key === 'price' && element[key] <= price) {
+	
+					return element;
+				}
+	
+	
 			}
-
-
-		}
-	})
-
-	return newArr;
+		})
+	
+		return newArrPrice;
+	 }
+	else { 
+		return;
+	}	
 }
-
-
 
 /*метод рисующий карточки */
 const renderList = (arrElements, containerInViewport) => {
-
-	arrElements.forEach(element => {
-		containerInViewport.insertAdjacentHTML('afterbegin', renderCard(element));
-	});
+	
+		arrElements.forEach(element => {
+			containerInViewport.insertAdjacentHTML('afterbegin', renderCard(element));
+		});
+	
+	
+	
 }
 
 
@@ -293,41 +323,41 @@ const createUl = (containerClass) => {
 	const ul = document.createElement('ul');
 	ul.classList.add('elementsList');
 	container.appendChild(ul);
-	
 }
+function blurThePage(containerClass) {
+	const container = document.querySelector(containerClass);
+	container.classList.add('active-blur');
+ }
 
 
-
-createUl( '.searching-form__input');
 //получаем то что введено в инпуте
 const getDataInputSerch = (containerClass,inputSerchClass) => {
 	const container = document.querySelector(containerClass);
 	const inputSerch = container.querySelector(inputSerchClass);
-
 	return inputSerch.value;
 }
  
- 
+function createDescription(containerClass,car,liClass,ulClass) {
+	const descriptionContainer = document.querySelector(containerClass);
+	const ul = document.createElement('ul');
+	ul.classList.add(ulClass)
+	descriptionContainer.appendChild(ul);
+	for (const key in car) {
+			if(key!='id'&&key!='foto'){
+			const li = document.createElement('li');
+		li.classList.add(liClass);
+		li.innerText = `${key} :  ${car[key]}`;
+		ul.appendChild(li);
+		}
+	}
+ } 
 
- //прослушиваем инпут на ввод
- const inp= document.querySelector('#serch').addEventListener('input', (e) => {
-	e.preventDefault();
-	clearInput('.searching-form__input', '.elementsList');
-	showElement(getDataInputSerch('.searching-form__input', '#serch').toUpperCase(),
-		getKey(cars, 'model'), '.elementsList', '.searching-input');
- 
-});
 
 
- //прослушиваем инпут на нажатие кнопки del
- const keyDown=document.addEventListener("keydown", (e) => {
-	e.code == 'Backspace' && e.key == 'Backspace' /* && inp.value.length >= 3 */ ?
-		clearInput('.searching-input', '.elementsList') : console.log('enter letter');
-		
-});
+
 
 /*функция вывода элемента под инпутом*/
-function showElement(str, carsArray, ulClass,inputClass) {
+function showElement(str, carsArray, ulClass, inputClass,liClass) {
 	const elem = document.querySelector(ulClass);
 	const serchInput = document.querySelector(inputClass);
 	carsArray.map((car) => { 
@@ -341,14 +371,16 @@ function showElement(str, carsArray, ulClass,inputClass) {
 			elem.innerHTML='';
 			serchInput.value = car;
 			elem.insertAdjacentHTML('afterbegin', `<li class="ul-item"><a href="#" class="title-car">${car}</a></li>`);
-			console.log('work');
 		}
 	});
-	const ulItem = elem.querySelectorAll('.ul-item');
+	const ulItem = elem.querySelectorAll(liClass);
 	ulItem.forEach((element) => { 
 		element.addEventListener('click', () => {
 			serchInput.value =element.firstChild.innerText ; 
-			elem.style.display="none"
+			elem.style.display = "none"
+			renderFrash('.searching-input', '.cars__fotos')
+			
+	
 		});
 	});
 }
@@ -360,14 +392,21 @@ function showArray(carsArray, ulClass) {
 		elem.insertAdjacentHTML('afterbegin', `<li class="ul-item"><a href="#" class="title-car">${car}</a></li>`);
 	});
 }
+//функция отнимания класса по клику на элемент
+function closePopup(containerClass, closeBtnClass,removingClass) { 
+	const container=document.querySelector(containerClass);
+	const closeBtn = container.querySelector(closeBtnClass);
+	closeBtn.addEventListener('click', () => { 
+		if (container.classList.contains(removingClass)) {
+			container.classList.remove(removingClass);
+		 }
+		if (closeBtn.classList.contains(removingClass)) {
+			closeBtn.classList.remove(removingClass);
+		 }
+		
+	});
+}
 
-
-//функция клика по кнопке очистки инпута
-const clearBtn = document.querySelector('.clear-filter-btn').addEventListener('click', (e) => { 
-	const form = document.querySelector('#form');
-	form.reset();
-	clearInput('.searching-input','.elementsList')
-});
 
 
 //функция очистки инпута и фильтра
@@ -382,20 +421,24 @@ function clearInput(classInput, ulClass) {
 	orderList.innerHTML = '';
 	renderList(cars, orderList);
 }
+function clearLi(classInput, ulClass) { 	
+	const clearingInput = document.querySelector(classInput);
+	const ul = document.querySelector(ulClass);
+		ul.innerHTML = '';
+}
 
 
-//клик по кнопке поиск
-const serchClick = document.querySelector('#serch-btn').addEventListener('click', () => {
-	const inp = document.querySelector('.searching-input');
+
+ //метод перерисовки странички с фото для инпута поиска
+function renderFrash(inputSelector,containerSelector) { 
+
+	const inp = document.querySelector(inputSelector);//
 	if (inp.value) {
-		
-		const container = document.querySelector('.cars__fotos')
+		const container = document.querySelector(containerSelector)//
 		container.innerHTML = "";
-		renderList(renderfilterList(cars, inp.value), container);//'.cars__fotos'
+		renderList(renderfilterList(cars, inp.value), container);
 	 }
-
- });
-
+}
 
 
 /*Метод фильтрации с пом checkbox */
@@ -458,16 +501,16 @@ const renderPage = () => {
 	createLinkButtonInContainer(`rent-btn price-filter btn-rent-link`, '.button-filter-container', 'Price Filter');
 	createLinkButtonInContainer(`rent-btn clear-filters btn-rent-link`, '.button-container', 'Clear-filter');
 	renderPriceSlider('.price', '#price', '.price-value');
-
+	//создаю ul в контейнере
+	createUl( '.searching-form__input');
 	const priceFilterButton = document.querySelector('.price-filter');
 	priceFilterButton.addEventListener('click', (e) => {
 		clearAllClasses(checkboxFilter);
 		clearAllClasses(checkedImage);
 		orderList.innerHTML = "";
-		renderList(filterListPrice(cars, getDataValue('#price')), orderList);
+		renderList(renderfilterList(cars,'','',getDataValue('#price')), orderList); 
+		
 	});
-
-
 	createFilters(getKey(cars, 'type'), '.filter1', cars);
 	createFilters(getKey(cars, 'capasity'), '.filter2', cars);
 
@@ -478,8 +521,30 @@ const renderPage = () => {
 	burger.addEventListener('click', () => {
 		burger.classList.toggle('active');
 	});
-
-
+	//клик по кнопке поиск
+	const serchClick = document.querySelector('#serch-btn').addEventListener('click', () => {
+		renderFrash('.searching-input', '.cars__fotos')
+		clearLi('.searching-input', '.elementsList')
+	});
+	//функция клика по кнопке очистки инпута
+	const clearBtn = document.querySelector('.clear-filter-btn').addEventListener('click', (e) => { 
+	const form = document.querySelector('#form');
+	form.reset();
+	clearInput('.searching-input','.elementsList')
+	});
+	 //прослушиваем инпут на нажатие кнопки del
+	 const keyDown=document.querySelector('#serch').addEventListener("keydown", (e) => {	
+		if (e.code == 'Backspace') { 
+			clearInput('.searching-input', '.elementsList');
+		}
+	});
+ //прослушиваем инпут на ввод
+ 	const inp= document.querySelector('#serch').addEventListener('input', (e) => {
+		e.preventDefault();
+		clearInput('.searching-form__input', '.elementsList');
+		showElement(getDataInputSerch('.searching-form__input', '#serch'),
+		getKey(cars, 'model'), '.elementsList', '.searching-input','.ul-item'); 
+	});
 
 	const clearFilters = document.querySelector('.clear-filters');
 	clearFilters.addEventListener('click', (e) => {
@@ -491,6 +556,48 @@ const renderPage = () => {
 		orderList.innerHTML = "";
 		renderList(cars, orderList);
 	});
-
+	//слушаем события клика на кнопку и клика на фотку машины
+	const clickRentNow = orderList.addEventListener('click', (e) => { 
+		const fotoContainer = orderList.querySelectorAll('.cars-item__foto');
+		const popup = document.querySelector('.popupp');
+		fotoContainer.forEach((elem) => { 
+			if (e.target == elem) { 
+				popup.classList.add('active');
+				popup.innerHTML = createPopup(renderfilterList(cars, '', elem.id, ''));
+				/* console.log(renderfilterList(cars, '', elem.id, '')); */
+				
+				createDescription('.popup-body__description', renderfilterList(cars, '', elem.id, ''), 'description-list__item', 'description-list');
+				closePopup('.popupp', '.close-link', 'active');
+				
+			}
+		});
+		orderList.querySelectorAll('.btn-rent-link').forEach((el) => { 
+			if (e.target != el) {
+				e.preventDefault();
+				el.classList.remove('active');
+			}
+			if (e.target == el) {
+				e.preventDefault();
+				el.classList.toggle('active');
+				blurThePage('.rental-page__container-background');
+				cars.forEach((car) => { 
+					if (car.model == el.getAttribute("data-name")) { 
+						for (const key in car) {
+							if(key!="foto")
+								console.log(`${key}: `,car[key]);
+						}
+					}
+				});
+				
+			}
+		});
+		
+		
+	}); 
 }
 renderPage();
+
+
+
+
+

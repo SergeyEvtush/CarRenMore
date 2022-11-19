@@ -65,6 +65,107 @@ body {
   font-style: normal;
 }
 /*colors*/
+.rental-page {
+  position: relative;
+}
+
+.popupp {
+  display: none;
+}
+
+.popupp.active {
+  position: absolute;
+  display: block;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.743);
+}
+
+.popupp-wraper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.popup-body {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: #000;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 50px;
+  color: #fff;
+}
+
+.popup-body__title {
+  padding: 60px 10px 10px 10px;
+  margin: 10px;
+}
+
+.item-title {
+  text-transform: uppercase;
+  font-size: 30px;
+}
+
+.popup-body__foto {
+  width: 30%;
+  margin: 30px;
+}
+
+.popup-body__foto img {
+  width: 100%;
+}
+
+.popup-body__description {
+  padding: 20px;
+}
+
+.description-list {
+  font-size: 20px;
+}
+
+.description-list__item:not(last-chaild) {
+  margin-bottom: 15px;
+}
+
+.popup-close {
+  position: absolute;
+  top: 5%;
+  right: 5%;
+}
+
+.close-link {
+  position: relative;
+  height: 50px;
+  display: block;
+}
+
+.close-link::before, .close-link::after {
+  position: absolute;
+  right: 0;
+  content: "";
+  width: 47px;
+  height: 3px;
+  background: #fff;
+}
+
+.close-link::before {
+  bottom: 50%;
+  transform: rotate(45deg);
+}
+
+.close-link::after {
+  top: 48%;
+  transform: rotate(-45deg);
+}
+
 ._container {
   max-width: 1190px;
   margin: 0 auto;
@@ -419,6 +520,7 @@ body {
   margin: 0 auto;
   width: 150px;
   height: 80px;
+  cursor: pointer;
 }
 
 .cars-item__description {
