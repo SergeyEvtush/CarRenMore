@@ -21,6 +21,12 @@ position: relative;
 	
 	display: none;
 }
+.order-popup{
+	display: none;
+}
+.order-popup.active{
+	display: block;
+}
 .popupp.active{
 	position: absolute;
 	display: block;
@@ -33,7 +39,7 @@ position: relative;
 .popupp-wraper {
 	position: relative;
 	width: 100%;
-	height: 100%;
+
 }
 .popup-body {
 	position: absolute;
@@ -41,15 +47,16 @@ position: relative;
 	left: 0;
 	background: #000;
 	width: 100%;
-	height: 100%;
+	margin-top: 50px;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: flex-start;
 	padding:50px;
 	color:$popup-color-text;
-	
+	border-radius: 30px;
 }
+
 .popup-body__title {
 	padding:60px 10px 10px 10px;
 	margin:10px;
@@ -76,8 +83,20 @@ margin:30px;
 .description-list__item:not(last-chaild) {
 	margin-bottom: 15px;
 }
-
-
+.popup-body__buttons{
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	margin-top: 30px;
+	padding:20px;
+	width: 50%;
+}
+.popup-body__buttons .rent-btn{
+	flex: 0 0 40%;
+	font-size: 20px;
+	text-transform: uppercase;
+}
 
 .popup-close {
 	position: absolute;
@@ -105,6 +124,55 @@ margin:30px;
 	top: 48%;
 	transform: rotate(-45deg);
 }
+
+.popup-body__form {
+}
+.form-body {
+	padding:20px 30px;
+	
+}
+.order-form {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+.order-form__item{
+	padding: 10px;
+	margin-bottom: 15px;
+}
+
+.form-input {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	flex-wrap: wrap;
+}
+.date{
+	max-width: 30%;
+}
+.input-order {
+	font-size: 20px;
+	line-height: 1.5;
+	border-radius: 10px;
+}
+.check-input{
+	width: 50px;
+	height: 50px;
+	background:#3563E9 ;
+	
+}
+.button-form {
+}
+.order-btn{
+	text-transform: uppercase;
+	font-weight: 700;
+}
+
+
+
+
 
 
 ._container{

@@ -127,11 +127,11 @@ const quantityElements = (objArr, dataType) => {
 	});
 	return count;
 };
-
+//разметка popupp
 const createPopup = (car) => { 
 	return `<div class="popupp-wraper _container">
 	<div class="popup-body" id="rental-popup">
-		<div class="popup-close">
+		<div class="popup-close" id="close-popup">
 			<a href="#" class="close-link"></a>
 		</div>
 		<div class="popup-body__title">
@@ -144,10 +144,52 @@ const createPopup = (car) => {
 		</div>
 		<div class="popup-body__description">
 		</div>
+		<div class="popup-body__buttons">
+			
+		</div>
+
 	</div>
 </div>`;
 };
-
+const createPopupOrderBy=(car) => { 
+	return `<div class="popupp-wraper _container">
+	<div class="popup-body order">
+	<div class="popup-close" id="close-order">
+		<a href="#" class="close-link"></a>
+	</div>
+	<div class="popup-body__title">
+		<h2 class="item-title">${car.model}</h2>
+	</div>
+	<div class="popup-body__description">
+	</div>
+	<div class="popup-body__buttons">
+	</div>
+	<div class="popup-body__form">
+		<div class="form-body">
+			<form action="" class="order-form">
+					<div class="order-form__item form-input">
+						<input type="text" class="input-order" id="Name">
+					</div>  
+					<div class="order-form__item form-input">
+						<input type="text" class="input-order" id="car">
+					</div>  
+					<div class="order-form__item form-input">
+						<input type="date" class="input-order date" id="take">
+						<input type="date" class="input-order date" id="back">
+					</div>  
+					<div class="order-form__item form-input">
+						<input type="checkbox" class="input-order check-input" id="buster">
+					</div>  
+					<div class="order-form__item button-form">
+						<button type="submit" id="submit" title="submit" class="rent-btn btn-rent-link order-btn">Order</button>
+					</div>
+					<div class="order-form__item form-input"></div>  
+			</form>
+		</div>
+	</div>
+	</div>
+</div>`;
+}
 
 
 
@@ -324,11 +366,6 @@ const createUl = (containerClass) => {
 	ul.classList.add('elementsList');
 	container.appendChild(ul);
 }
-function blurThePage(containerClass) {
-	const container = document.querySelector(containerClass);
-	container.classList.add('active-blur');
- }
-
 
 //получаем то что введено в инпуте
 const getDataInputSerch = (containerClass,inputSerchClass) => {
@@ -336,7 +373,7 @@ const getDataInputSerch = (containerClass,inputSerchClass) => {
 	const inputSerch = container.querySelector(inputSerchClass);
 	return inputSerch.value;
 }
- 
+ //создаю описание авто из переданной машины,создаю их в ul li
 function createDescription(containerClass,car,liClass,ulClass) {
 	const descriptionContainer = document.querySelector(containerClass);
 	const ul = document.createElement('ul');
@@ -489,7 +526,7 @@ const clearAllClasses = (arrayFilters) => {
 /*создание кнопки -ссылки */
 const createLinkButtonInContainer = (classButton, containerClass, textInButton, hrefText = "#") => {
 	const container = document.querySelector(containerClass);
-	container.insertAdjacentHTML("afterbegin", `<a href="${hrefText}" class="rent-btn ${classButton} btn-rent-link" >${textInButton}</a>`);
+	return container.insertAdjacentHTML("afterbegin", `<a href="${hrefText}" class="${classButton}" >${textInButton}</a>`);
 
 }
 
@@ -559,15 +596,25 @@ const renderPage = () => {
 	//слушаем события клика на кнопку и клика на фотку машины
 	const clickRentNow = orderList.addEventListener('click', (e) => { 
 		const fotoContainer = orderList.querySelectorAll('.cars-item__foto');
-		const popup = document.querySelector('.popupp');
+		const popupOrder = document.querySelector('.order-popup');
+		const popup = document.querySelector('#description-popup');
 		fotoContainer.forEach((elem) => { 
 			if (e.target == elem) { 
-				popup.classList.add('active');
+				popup.classList.toggle('active');
 				popup.innerHTML = createPopup(renderfilterList(cars, '', elem.id, ''));
-				/* console.log(renderfilterList(cars, '', elem.id, '')); */
-				
 				createDescription('.popup-body__description', renderfilterList(cars, '', elem.id, ''), 'description-list__item', 'description-list');
-				closePopup('.popupp', '.close-link', 'active');
+				createLinkButtonInContainer(`btn-rent-link rent-btn popup-btn`, '.popup-body__buttons', 'Rent Now');
+				createLinkButtonInContainer(`phone-link rent-btn`, '.popup-body__buttons', 'Phone Now');
+				const orderBtn = popup.querySelector('.popup-btn');
+				orderBtn.addEventListener('click', (e) => { 
+					orderBtn.classList.toggle('active');
+					e.preventDefault();
+					popup.classList.remove('active');
+					popupOrder.classList.toggle('active');
+					popupOrder.innerHTML = createPopupOrderBy(renderfilterList(cars, '', elem.id, ''));
+					closePopup('.order-popup', '#close-order', 'active');
+				});
+				closePopup('.popupp', '#close-popup', 'active');
 				
 			}
 		});
@@ -579,25 +626,48 @@ const renderPage = () => {
 			if (e.target == el) {
 				e.preventDefault();
 				el.classList.toggle('active');
-				blurThePage('.rental-page__container-background');
+				
 				cars.forEach((car) => { 
 					if (car.model == el.getAttribute("data-name")) { 
+						popupOrder.classList.add('active');
+						popupOrder.innerHTML = createPopupOrderBy(renderfilterList(cars, '', car.id, ''));
+						closePopup('.order-popup', '#close-order', 'active');
+						
 						for (const key in car) {
 							if(key!="foto")
 								console.log(`${key}: `,car[key]);
 						}
 					}
 				});
-				
 			}
 		});
-		
-		
 	}); 
 }
 renderPage();
-
-
+/*
+orderList.querySelectorAll('.btn-rent-link').forEach((el) => { 
+			if (e.target != el) {
+				e.preventDefault();
+				el.classList.remove('active');
+			}
+			if (e.target == el) {
+				e.preventDefault();
+				el.classList.toggle('active');
+				const popupOrder = document.querySelector('.order-popup');
+				cars.forEach((car) => { 
+					if (car.model == el.getAttribute("data-name")) { 
+						popupOrder.classList.add('active');
+						popupOrder.innerHTML = createPopupOrderBy(renderfilterList(cars, '', car.id, ''));
+						closePopup('.order-popup', '#close-order', 'active');
+						
+						for (const key in car) {
+							if(key!="foto")
+								console.log(`${key}: `,car[key]);
+						}
+					}
+				});
+			}
+		}); */
 
 
 
