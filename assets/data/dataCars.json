@@ -1,0 +1,93 @@
+[
+	{
+		"id": "car1",
+		"model": "Mersedes",
+		"type": "Sport",
+		"transmission": "Authomatic",
+		"fuelType": "Gasoline",
+		"capasity": "2 person",
+		"year": "2021",
+		"price": "3000",
+		"rating": "five",
+		"bluetooth": true,
+		"foto": "Assets/img/car.jpg"
+	},
+	{
+		"id": "car2",
+		"model": "Porshe",
+		"type": "Sport",
+		"transmission": "Authomatic",
+		"fuelType": "Gasoline",
+		"capasity": "2 person",
+		"year": "2022",
+		"price": "2500",
+		"rating": 4,
+		"bluetooth": true,
+		"foto": "Assets/img/car1.jpg"
+	},
+	{
+		"id": "car3",
+		"model": "Honda",
+		"type": "Mpv",
+		"transmission": "Authomatic",
+		"fuelType": "Gasoline",
+		"capasity": "4 person",
+		"year": "2020",
+		"price": "2000",
+		"rating": 5,
+		"bluetooth": true,
+		"foto": "Assets/img/car2.jpg"
+	},
+	{
+		"id": "car4",
+		"model": "Suv",
+		"type": "Coup",
+		"transmission": "Authomatic",
+		"fuelType": "Gasoline",
+		"capasity": "4 person",
+		"year": "2020",
+		"price": "2000",
+		"rating": 5,
+		"bluetooth": true,
+		"foto": "Assets/img/car3.jpg"
+	},
+	{
+		"id": "car5",
+		"model": "Suv",
+		"type": "Sedan",
+		"transmission": "Authomatic",
+		"fuelType": "Gasoline",
+		"capasity": "6 person",
+		"year": "2020",
+		"price": "2500",
+		"rating": 5,
+		"bluetooth": true,
+		"foto": "Assets/img/car3.jpg"
+	},
+	{
+		"id": "car6",
+		"model": "Suv",
+		"type": "Hatchback",
+		"transmission": "Authomatic",
+		"fuelType": "Gasoline",
+		"capasity": "8 person",
+		"year": "2020",
+		"price": "3000",
+		"rating": 5,
+		"bluetooth": true,
+		"foto": "Assets/img/car3.jpg"
+	},
+	{
+		"id": "car7",
+		"model": "Mersedes Gl",
+		"type": "OffRoad",
+		"transmission": "Authomatic",
+		"fuelType": "Gasoline",
+		"capasity": "8 person",
+		"year": "2020",
+		"price": "3000",
+		"rating": 5,
+		"bluetooth": true,
+		"foto": "Assets/img/car3.jpg"
+	}
+]

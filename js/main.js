@@ -1,105 +1,5 @@
 "use strict"
 
-
-
-/*примеры машин */
-const mersedes = {
-	id: "car1",
-	model: "Mersedes",
-	type: "Sport",
-	transmission: "Authomatic",
-	fuelType: "Gasoline",
-	capasity: "2 person",
-	year: "2021",
-	price: "3000",
-	rating: "five",
-	bluetooth: true,
-	foto: "Assets/img/car.jpg"
-};
-const porshe = {
-	id: "car2",
-	model: "Porshe",
-	type: "Sport",
-	transmission: "Authomatic",
-	fuelType: "Gasoline",
-	capasity: "2 person",
-	year: "2022",
-	price: "2500",
-	rating: 4,
-	bluetooth: true,
-	foto: "Assets/img/car1.jpg"
-};
-const honda = {
-	id: "car3",
-	model: "Honda",
-	type: "Mpv",
-	transmission: "Authomatic",
-	fuelType: "Gasoline",
-	capasity: "4 person",
-	year: "2020",
-	price: "2000",
-	rating: 5,
-	bluetooth: true,
-	foto: "Assets/img/car2.jpg"
-};
-const rush = {
-	id: "car4",
-	model: "Suv",
-	type: "Coup",
-	transmission: "Authomatic",
-	fuelType: "Gasoline",
-	capasity: "4 person",
-	year: "2020",
-	price: "2000",
-	rating: 5,
-	bluetooth: true,
-	foto: "Assets/img/car3.jpg"
-};
-const rush2 = {
-	id: "car5",
-	model: "Suv",
-	type: "Sedan",
-	transmission: "Authomatic",
-	fuelType: "Gasoline",
-	capasity: "6 person",
-	year: "2020",
-	price: "2500",
-	rating: 5,
-	bluetooth: true,
-	foto: "Assets/img/car3.jpg"
-};
-const rush1 = {
-	id: "car6",
-	model: "Suv",
-	type: "Hatchback",
-	transmission: "Authomatic",
-	fuelType: "Gasoline",
-	capasity: "8 person",
-	year: "2020",
-	price: "3000",
-	rating: 5,
-	bluetooth: true,
-	foto: "Assets/img/car3.jpg"
-};
-const MersGl = {
-	id: "car7",
-	model: "Mersedes Gl",
-	type: "OffRoad",
-	transmission: "Authomatic",
-	fuelType: "Gasoline",
-	capasity: "8 person",
-	year: "2020",
-	price: "3000",
-	rating: 5,
-	bluetooth: true,
-	foto: "Assets/img/car3.jpg"
-};
-/*массив объектов машин */
-const cars = [
-	mersedes, porshe, honda, rush, rush1, rush2,MersGl
-];
-
-
 /*!получение ключей из массива объектов*/
 const getKey = (carsArr, typeKey) => {
 	const dataCars = [];
@@ -191,8 +91,6 @@ const createPopupOrderBy=(car) => {
 </div>`;
 }
 
-
-
 /*!создаю разметку для фильтров */
 const createFilters = (filtersArray, conatinerFiltersClass, carArr) => {
 	const containerFilters = document.querySelector(conatinerFiltersClass);
@@ -203,8 +101,6 @@ const createFilters = (filtersArray, conatinerFiltersClass, carArr) => {
 	});
 	containerFilters.appendChild(ul);
 };
-
-
 
 /*разметка для карточек */
 const renderCard = (car) => {
@@ -389,10 +285,6 @@ function createDescription(containerClass,car,liClass,ulClass) {
 	}
  } 
 
-
-
-
-
 /*функция вывода элемента под инпутом*/
 function showElement(str, carsArray, ulClass, inputClass,liClass) {
 	const elem = document.querySelector(ulClass);
@@ -443,8 +335,6 @@ function closePopup(containerClass, closeBtnClass,removingClass) {
 		
 	});
 }
-
-
 
 //функция очистки инпута и фильтра
 function clearInput(classInput, ulClass) { 	
@@ -531,7 +421,7 @@ const createLinkButtonInContainer = (classButton, containerClass, textInButton, 
 }
 
 /*функция рисующая страничку */
-const renderPage = () => {
+const renderPage = (cars) => {
 
 	const burger = document.querySelector('.menu-burger');
 	const orderList = document.querySelector('.cars__fotos');
@@ -546,7 +436,6 @@ const renderPage = () => {
 		clearAllClasses(checkedImage);
 		orderList.innerHTML = "";
 		renderList(renderfilterList(cars,'','',getDataValue('#price')), orderList); 
-		
 	});
 	createFilters(getKey(cars, 'type'), '.filter1', cars);
 	createFilters(getKey(cars, 'capasity'), '.filter2', cars);
@@ -582,7 +471,7 @@ const renderPage = () => {
 		showElement(getDataInputSerch('.searching-form__input', '#serch'),
 		getKey(cars, 'model'), '.elementsList', '.searching-input','.ul-item'); 
 	});
-
+//сбрасываем все установленные фильтры
 	const clearFilters = document.querySelector('.clear-filters');
 	clearFilters.addEventListener('click', (e) => {
 		e.preventDefault();
@@ -605,6 +494,7 @@ const renderPage = () => {
 				createDescription('.popup-body__description', renderfilterList(cars, '', elem.id, ''), 'description-list__item', 'description-list');
 				createLinkButtonInContainer(`btn-rent-link rent-btn popup-btn`, '.popup-body__buttons', 'Rent Now');
 				createLinkButtonInContainer(`phone-link rent-btn`, '.popup-body__buttons', 'Phone Now');
+				//клик по кнопке внутри попапа
 				const orderBtn = popup.querySelector('.popup-btn');
 				orderBtn.addEventListener('click', (e) => { 
 					orderBtn.classList.toggle('active');
@@ -613,6 +503,8 @@ const renderPage = () => {
 					popupOrder.classList.toggle('active');
 					popupOrder.innerHTML = createPopupOrderBy(renderfilterList(cars, '', elem.id, ''));
 					closePopup('.order-popup', '#close-order', 'active');
+					//раскоментировать для появления первого модалки при закрытии 
+					/* popup.classList.toggle('active'); */
 				});
 				closePopup('.popupp', '#close-popup', 'active');
 				
@@ -626,13 +518,11 @@ const renderPage = () => {
 			if (e.target == el) {
 				e.preventDefault();
 				el.classList.toggle('active');
-				
 				cars.forEach((car) => { 
 					if (car.model == el.getAttribute("data-name")) { 
 						popupOrder.classList.add('active');
 						popupOrder.innerHTML = createPopupOrderBy(renderfilterList(cars, '', car.id, ''));
 						closePopup('.order-popup', '#close-order', 'active');
-						
 						for (const key in car) {
 							if(key!="foto")
 								console.log(`${key}: `,car[key]);
@@ -643,31 +533,15 @@ const renderPage = () => {
 		});
 	}); 
 }
-renderPage();
-/*
-orderList.querySelectorAll('.btn-rent-link').forEach((el) => { 
-			if (e.target != el) {
-				e.preventDefault();
-				el.classList.remove('active');
-			}
-			if (e.target == el) {
-				e.preventDefault();
-				el.classList.toggle('active');
-				const popupOrder = document.querySelector('.order-popup');
-				cars.forEach((car) => { 
-					if (car.model == el.getAttribute("data-name")) { 
-						popupOrder.classList.add('active');
-						popupOrder.innerHTML = createPopupOrderBy(renderfilterList(cars, '', car.id, ''));
-						closePopup('.order-popup', '#close-order', 'active');
-						
-						for (const key in car) {
-							if(key!="foto")
-								console.log(`${key}: `,car[key]);
-						}
-					}
-				});
-			}
-		}); */
 
+const carsData = fetch('assets/data/dataCars.json')
+	.then(data => {
+		return data.json();
+	})
+	.then(data => {
+		renderPage(data);
+		return data
+		
+	});
 
 
