@@ -533,7 +533,7 @@ const renderPage = (cars) => {
 		});
 	}); 
 }
-
+//получение данных из файла
 const carsData = fetch('assets/data/dataCars.json')
 	.then(data => {
 		return data.json();
