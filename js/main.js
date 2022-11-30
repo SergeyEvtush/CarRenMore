@@ -74,8 +74,8 @@ const createPopupOrderBy=(car) => {
 						<input type="text" class="input-order" id="car">
 					</div>  
 					<div class="order-form__item form-input">
-						<input type="date" class="input-order date" id="take">
-						<input type="date" class="input-order date" id="back">
+						<input type="date" class="input-order date-order" id="take">
+						<input type="date" class="input-order date-order" id="back">
 					</div>  
 					<div class="order-form__item form-input">
 						<input type="checkbox" class="input-order check-input" id="buster">
@@ -90,6 +90,10 @@ const createPopupOrderBy=(car) => {
 	</div>
 </div>`;
 }
+
+
+
+
 
 /*!создаю разметку для фильтров */
 const createFilters = (filtersArray, conatinerFiltersClass, carArr) => {
@@ -494,6 +498,7 @@ const renderPage = (cars) => {
 				createDescription('.popup-body__description', renderfilterList(cars, '', elem.id, ''), 'description-list__item', 'description-list');
 				createLinkButtonInContainer(`btn-rent-link rent-btn popup-btn`, '.popup-body__buttons', 'Rent Now');
 				createLinkButtonInContainer(`phone-link rent-btn`, '.popup-body__buttons', 'Phone Now');
+					
 				//клик по кнопке внутри попапа
 				const orderBtn = popup.querySelector('.popup-btn');
 				orderBtn.addEventListener('click', (e) => { 
@@ -518,10 +523,18 @@ const renderPage = (cars) => {
 			if (e.target == el) {
 				e.preventDefault();
 				el.classList.toggle('active');
+				
 				cars.forEach((car) => { 
 					if (car.model == el.getAttribute("data-name")) { 
 						popupOrder.classList.add('active');
 						popupOrder.innerHTML = createPopupOrderBy(renderfilterList(cars, '', car.id, ''));
+						const dateTimePicker = document.querySelectorAll('.date-order');
+						dateTimePicker.forEach((item) => { 
+							item.addEventListener('click', (ev) => { 
+								ev.preventDefault();
+							})
+						});
+						
 						closePopup('.order-popup', '#close-order', 'active');
 						for (const key in car) {
 							if(key!="foto")
@@ -540,6 +553,8 @@ const carsData = fetch('assets/data/dataCars.json')
 	})
 	.then(data => {
 		renderPage(data);
+		
+
 		return data
 		
 	});

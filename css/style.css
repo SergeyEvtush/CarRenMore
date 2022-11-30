@@ -213,8 +213,9 @@ body {
   flex-wrap: wrap;
 }
 
-.date {
-  max-width: 30%;
+.date-order {
+  max-width: 40%;
+  cursor: pointer;
 }
 
 .input-order {
