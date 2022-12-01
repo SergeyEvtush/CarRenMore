@@ -311,7 +311,7 @@ function showElement(str, carsArray, ulClass, inputClass,liClass) {
 		element.addEventListener('click', () => {
 			serchInput.value =element.firstChild.innerText ; 
 			elem.style.display = "none"
-			renderFrash('.searching-input', '.cars__fotos')
+			renderFrash('.searching-input', '.cars__fotos',carsArray)
 			
 	
 		});
@@ -341,7 +341,7 @@ function closePopup(containerClass, closeBtnClass,removingClass) {
 }
 
 //функция очистки инпута и фильтра
-function clearInput(classInput, ulClass) { 	
+function clearInput(classInput, ulClass,array) { 	
 	const clearingInput = document.querySelector(classInput);
 	const ul = document.querySelector(ulClass);
 	if (clearingInput.value) { 
@@ -350,7 +350,7 @@ function clearInput(classInput, ulClass) {
 	}
 	const orderList = document.querySelector('.cars__fotos');
 	orderList.innerHTML = '';
-	renderList(cars, orderList);
+	renderList(array, orderList);
 }
 function clearLi(classInput, ulClass) { 	
 	const clearingInput = document.querySelector(classInput);
@@ -361,13 +361,13 @@ function clearLi(classInput, ulClass) {
 
 
  //метод перерисовки странички с фото для инпута поиска
-function renderFrash(inputSelector,containerSelector) { 
+function renderFrash(inputSelector,containerSelector,carsArray) { 
 
 	const inp = document.querySelector(inputSelector);//
 	if (inp.value) {
 		const container = document.querySelector(containerSelector)//
 		container.innerHTML = "";
-		renderList(renderfilterList(cars, inp.value), container);
+		renderList(renderfilterList(carsArray, inp.value), container);
 	 }
 }
 
@@ -453,25 +453,26 @@ const renderPage = (cars) => {
 	});
 	//клик по кнопке поиск
 	const serchClick = document.querySelector('#serch-btn').addEventListener('click', () => {
-		renderFrash('.searching-input', '.cars__fotos')
+		renderFrash('.searching-input', '.cars__fotos',cars)
 		clearLi('.searching-input', '.elementsList')
 	});
+	
 	//функция клика по кнопке очистки инпута
 	const clearBtn = document.querySelector('.clear-filter-btn').addEventListener('click', (e) => { 
 	const form = document.querySelector('#form');
 	form.reset();
-	clearInput('.searching-input','.elementsList')
+	clearInput('.searching-input','.elementsList',cars)
 	});
 	 //прослушиваем инпут на нажатие кнопки del
 	 const keyDown=document.querySelector('#serch').addEventListener("keydown", (e) => {	
 		if (e.code == 'Backspace') { 
-			clearInput('.searching-input', '.elementsList');
+			clearInput('.searching-input', '.elementsList',cars);
 		}
 	});
  //прослушиваем инпут на ввод
  	const inp= document.querySelector('#serch').addEventListener('input', (e) => {
 		e.preventDefault();
-		clearInput('.searching-form__input', '.elementsList');
+		clearInput('.searching-form__input', '.elementsList',cars);
 		showElement(getDataInputSerch('.searching-form__input', '#serch'),
 		getKey(cars, 'model'), '.elementsList', '.searching-input','.ul-item'); 
 	});
