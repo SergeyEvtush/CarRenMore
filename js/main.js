@@ -346,6 +346,7 @@ function clearInput(classInput, ulClass,array) {
 	const ul = document.querySelector(ulClass);
 	if (clearingInput.value) { 
 		clearingInput.value = '';
+		clearingInput.innerText = '';
 		ul.innerHTML = '';
 	}
 	const orderList = document.querySelector('.cars__fotos');
@@ -483,7 +484,10 @@ const renderPage = (cars,orderListClass) => {
 				});
 			});
 	});
-
+const inpClick=document.querySelector('#serch').addEventListener('click',()=>{
+	document.querySelector('#serch').value='';
+	renderList(cars, orderList);
+});
 //сбрасываем все установленные фильтры
 	const clearFilters = document.querySelector('.clear-filters');
 	clearFilters.addEventListener('click', (e) => {
