@@ -484,6 +484,7 @@ const renderPage = (cars,orderListClass) => {
 				});
 			});
 	});
+	//очищаю инпут по клику на него
 const inpClick=document.querySelector('#serch').addEventListener('click',()=>{
 	document.querySelector('#serch').value='';
 	renderList(cars, orderList);
