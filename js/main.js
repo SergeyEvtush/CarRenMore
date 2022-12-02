@@ -124,7 +124,7 @@ const renderCard = (car) => {
 		</div>
 	</div>
 	<div class="cars-item__foto" id="${car.id}">
-		<img src="${car.foto}" alt="car">
+		<img src="${car.foto}" alt="car" class="foto">
 	</div>
 	<div class="cars-item__description">
 		<ul class="description-car">
@@ -425,10 +425,10 @@ const createLinkButtonInContainer = (classButton, containerClass, textInButton, 
 }
 
 /*функция рисующая страничку */
-const renderPage = (cars) => {
+const renderPage = (cars,orderListClass) => {
 
 	const burger = document.querySelector('.menu-burger');
-	const orderList = document.querySelector('.cars__fotos');
+	const orderList = document.querySelector(orderListClass);//
 	createLinkButtonInContainer(`rent-btn price-filter btn-rent-link`, '.button-filter-container', 'Price Filter');
 	createLinkButtonInContainer(`rent-btn clear-filters btn-rent-link`, '.button-container', 'Clear-filter');
 	renderPriceSlider('.price', '#price', '.price-value');
@@ -474,8 +474,16 @@ const renderPage = (cars) => {
 		e.preventDefault();
 		clearInput('.searching-form__input', '.elementsList',cars);
 		showElement(getDataInputSerch('.searching-form__input', '#serch'),
-		getKey(cars, 'model'), '.elementsList', '.searching-input','.ul-item'); 
+		getKey(cars, 'model'), '.elementsList', '.searching-input','.ul-item');
+		
+		const liArray=document.querySelectorAll('.ul-item').forEach((li)=>{
+				li.addEventListener('click',()=>{
+				renderFrash('.searching-input', '.cars__fotos',cars)
+				clearLi('.searching-input', '.elementsList')
+				});
+			});
 	});
+
 //сбрасываем все установленные фильтры
 	const clearFilters = document.querySelector('.clear-filters');
 	clearFilters.addEventListener('click', (e) => {
@@ -493,7 +501,8 @@ const renderPage = (cars) => {
 		const popupOrder = document.querySelector('.order-popup');
 		const popup = document.querySelector('#description-popup');
 		fotoContainer.forEach((elem) => { 
-			if (e.target == elem) { 
+			const foto=elem.querySelector('.foto');
+			if (e.target == elem||e.target==foto) { 
 				popup.classList.toggle('active');
 				popup.innerHTML = createPopup(renderfilterList(cars, '', elem.id, ''));
 				createDescription('.popup-body__description', renderfilterList(cars, '', elem.id, ''), 'description-list__item', 'description-list');
@@ -546,6 +555,7 @@ const renderPage = (cars) => {
 			}
 		});
 	}); 
+	
 }
 //получение данных из файла
 const carsData = fetch('assets/data/dataCars.json')
@@ -553,7 +563,7 @@ const carsData = fetch('assets/data/dataCars.json')
 		return data.json();
 	})
 	.then(data => {
-		renderPage(data);
+		renderPage(data,'.cars__fotos');
 		
 
 		return data
