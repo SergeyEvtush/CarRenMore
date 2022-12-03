@@ -89,5 +89,44 @@
 		"rating": 5,
 		"bluetooth": true,
 		"foto": "Assets/img/car3.jpg"
+	},
+	{
+		"id": "car8",
+		"model": "Mersedes Gl",
+		"type": "OffRoad",
+		"transmission": "Authomatic",
+		"fuelType": "Gasoline",
+		"capasity": "8 person",
+		"year": "2020",
+		"price": "3000",
+		"rating": 5,
+		"bluetooth": true,
+		"foto": "Assets/img/car3.jpg"
+	},
+	{
+		"id": "car9",
+		"model": "Mersedes Gl",
+		"type": "OffRoad",
+		"transmission": "Authomatic",
+		"fuelType": "Gasoline",
+		"capasity": "8 person",
+		"year": "2020",
+		"price": "3000",
+		"rating": 5,
+		"bluetooth": true,
+		"foto": "Assets/img/car3.jpg"
+	},
+	{
+		"id": "car10",
+		"model": "Mersedes Gl",
+		"type": "OffRoad",
+		"transmission": "Authomatic",
+		"fuelType": "Gasoline",
+		"capasity": "8 person",
+		"year": "2020",
+		"price": "3000",
+		"rating": 5,
+		"bluetooth": true,
+		"foto": "Assets/img/car3.jpg"
 	}
 ]
