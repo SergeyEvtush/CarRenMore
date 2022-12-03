@@ -429,33 +429,38 @@ const createLinkButtonInContainer = (classButton, containerClass, textInButton, 
 /*функция рисующая страничку */
 const renderPage = (cars,orderListClass) => {
 
-	const burger = document.querySelector('.menu-burger');
+	/* const burger = document.querySelector(); */
 	const orderList = document.querySelector(orderListClass);
+
 	//создание кнопок для сброса фильтров и для фильтрации по цене
 	createLinkButtonInContainer(`rent-btn price-filter btn-rent-link`, '.button-filter-container', 'Price Filter');
 	createLinkButtonInContainer(`rent-btn clear-filters btn-rent-link`, '.button-container', 'Clear-filter');
+
+	//кнопка для показа еще машин show more
+	createLinkButtonInContainer(`btn-show`,`.show-more-btn__link`,'Show-more-car');
+
 	//отрисовка ползунка цен
 	renderPriceSlider('.price', '#price', '.price-value');
+
 	//отрисовка карточек авто
 	renderList(cars, orderList);
 	const showMoreCars=document.querySelector('.show-more-btn__link').addEventListener('click',(e)=>{
 		e.preventDefault();
+		
 		let count=orderList.children.length;
 		if(orderList.children.length>=cars.length){
 			orderList.innerHTML="";
 			renderList(cars, orderList,cars.length);
-			console.log('work1');
 		}else if(orderList.children.length<=cars.length){
 			orderList.innerHTML="";
 			renderList(cars, orderList,count+count);
-			console.log('work2');
 		}
 		
 
 	});
+	
 	//создаю ul в контейнере в котором выпадают подсказки при наборе 
 	createUl( '.searching-form__input');
-
 	const priceFilterButton = document.querySelector('.price-filter');
 	//событие клика кнопке фильтрации по цене
 	priceFilterButton.addEventListener('click', (e) => {
@@ -463,19 +468,24 @@ const renderPage = (cars,orderListClass) => {
 		clearAllClasses(checkedImage);
 		orderList.innerHTML = "";
 		renderList(renderfilterList(cars,'','',getDataValue('#price')), orderList); 
+		
 	});
+
 	//создаю чекбоксы для фильтов по различным данным авто
 	createFilters(getKey(cars, 'type'), '.filter1', cars);
 	createFilters(getKey(cars, 'capasity'), '.filter2', cars);
 
 	const checkboxFilter = document.querySelectorAll('.check');
 	const checkedImage = document.querySelectorAll('.checked__image');
+
 	//вывод отфильтрованных фильтров по цене
 	setFiltr(checkboxFilter, cars, orderList, '#price', '.price-value');
+
 	//клик по бургеру
-	burger.addEventListener('click', () => {
-		burger.classList.toggle('active');
+	const burger=document.querySelector('.menu-burger').addEventListener('click', () => {
+		document.querySelector('.menu-burger').classList.toggle('active');
 	});
+
 	//клик по кнопке поиск
 	const serchClick = document.querySelector('#serch-btn').addEventListener('click', () => {
 		renderFrash('.searching-input', '.cars__fotos',cars)
@@ -488,12 +498,14 @@ const renderPage = (cars,orderListClass) => {
 	form.reset();
 	clearInput('.searching-input','.elementsList',cars)
 	});
+
 	 //прослушиваем инпут на нажатие кнопки del
 	 const keyDown=document.querySelector('#serch').addEventListener("keydown", (e) => {	
 		if (e.code == 'Backspace') { 
 			clearInput('.searching-input', '.elementsList',cars);
 		}
 	});
+
  //прослушиваем инпут на ввод
  	const inp= document.querySelector('#serch').addEventListener('input', (e) => {
 		e.preventDefault();
@@ -508,11 +520,13 @@ const renderPage = (cars,orderListClass) => {
 				});
 			});
 	});
+
 	//очищаю инпут по клику на него
 const inpClick=document.querySelector('#serch').addEventListener('click',()=>{
 	document.querySelector('#serch').value='';
 	renderList(cars, orderList);
 });
+
 //сбрасываем все установленные фильтры
 	const clearFilters = document.querySelector('.clear-filters');
 	clearFilters.addEventListener('click', (e) => {
@@ -524,6 +538,7 @@ const inpClick=document.querySelector('#serch').addEventListener('click',()=>{
 		orderList.innerHTML = "";
 		renderList(cars, orderList);
 	});
+
 	//слушаем события клика на кнопку и клика на фотку машины
 	const clickRentNow = orderList.addEventListener('click', (e) => { 
 		const fotoContainer = orderList.querySelectorAll('.cars-item__foto');
