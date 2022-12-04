@@ -329,15 +329,21 @@ function showArray(carsArray, ulClass) {
 	});
 }
 //функция отнимания класса по клику на элемент
-function closePopup(containerClass, closeBtnClass,removingClass) { 
+function closePopup(containerClass, closeBtnClass,removingClass,bodyClass) { 
 	const container=document.querySelector(containerClass);
 	const closeBtn = container.querySelector(closeBtnClass);
+	const body=document.querySelector('body');
 	closeBtn.addEventListener('click', () => { 
 		if (container.classList.contains(removingClass)) {
 			container.classList.remove(removingClass);
+			
+
 		 }
 		if (closeBtn.classList.contains(removingClass)) {
 			closeBtn.classList.remove(removingClass);
+		 }
+		 if(body.classList.contains(bodyClass)){
+			body.classList.remove(bodyClass);
 		 }
 		
 	});
@@ -484,6 +490,9 @@ const renderPage = (cars,orderListClass) => {
 	//клик по бургеру
 	const burger=document.querySelector('.menu-burger').addEventListener('click', () => {
 		document.querySelector('.menu-burger').classList.toggle('active');
+		document.querySelector('.menu-wraper').classList.toggle('active');
+		document.querySelector('.menu-wraper__body').classList.toggle('active');
+		document.querySelector('body').classList.toggle('lock');
 	});
 
 	//клик по кнопке поиск
@@ -552,6 +561,7 @@ const inpClick=document.querySelector('#serch').addEventListener('click',()=>{
 				createDescription('.popup-body__description', renderfilterList(cars, '', elem.id, ''), 'description-list__item', 'description-list');
 				createLinkButtonInContainer(`btn-rent-link rent-btn popup-btn`, '.popup-body__buttons', 'Rent Now');
 				createLinkButtonInContainer(`phone-link rent-btn`, '.popup-body__buttons', 'Phone Now');
+				document.querySelector('body').classList.toggle('lock');
 					
 				//клик по кнопке внутри попапа
 				const orderBtn = popup.querySelector('.popup-btn');
@@ -561,15 +571,17 @@ const inpClick=document.querySelector('#serch').addEventListener('click',()=>{
 					popup.classList.remove('active');
 					popupOrder.classList.toggle('active');
 					popupOrder.innerHTML = createPopupOrderBy(renderfilterList(cars, '', elem.id, ''));
-					closePopup('.order-popup', '#close-order', 'active');
+					closePopup('.order-popup', '#close-order', 'active','lock');
+					
 					//раскоментировать для появления первого модалки при закрытии 
 					/* popup.classList.toggle('active'); */
 				});
-				closePopup('.popupp', '#close-popup', 'active');
+				closePopup('.popupp', '#close-popup', 'active','lock');
 				
 			}
 		});
 		orderList.querySelectorAll('.btn-rent-link').forEach((el) => { 
+			
 			if (e.target != el) {
 				e.preventDefault();
 				el.classList.remove('active');
@@ -577,7 +589,7 @@ const inpClick=document.querySelector('#serch').addEventListener('click',()=>{
 			if (e.target == el) {
 				e.preventDefault();
 				el.classList.toggle('active');
-				
+				document.querySelector('body').classList.toggle('lock');
 				cars.forEach((car) => { 
 					if (car.model == el.getAttribute("data-name")) { 
 						popupOrder.classList.add('active');
@@ -589,7 +601,7 @@ const inpClick=document.querySelector('#serch').addEventListener('click',()=>{
 							})
 						});
 						
-						closePopup('.order-popup', '#close-order', 'active');
+						closePopup('.order-popup', '#close-order', 'active','lock');
 						for (const key in car) {
 							if(key!="foto")
 								console.log(`${key}: `,car[key]);

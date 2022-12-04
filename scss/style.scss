@@ -11,35 +11,64 @@ $blue-color: #3563E9;
 $bold:PlusJacartaBold;
 $medium:PlusJacartaMedium;
 $regular:PlusJacartaRegular;
-
-.wraper {
-}
-.rental-page {
-position: relative;
-}
-.popupp {
+body.lock{
+	overflow: hidden;
 	
-	display: none;
 }
-.order-popup{
-	display: none;
+.wraper {
+	position: relative;
 }
-.order-popup.active{
-	display: block;
-}
-.popupp.active{
+body.lock .bodylock-background{
 	position: absolute;
-	display: block;
 	top: 0;
 	left: 0;
 	width: 100%;
 	height: 100%;
-	background: rgba(0, 0, 0, 0.743);
+	overflow: hidden;
+	background: #1a202c8f;
+	z-index: 10;
+	transition: all 1s ease 1s;
+}
+.rental-page {
+position: relative;
+
+}
+.popupp {
+	opacity: 0;
+	visibility: hidden;
+	transform: translateX(100%);
+	transition: all 0.5s ease 0.3s;
+}
+.order-popup{
+	opacity: 0;
+	visibility: hidden;
+	transform: translateX(-100%) ;
+	transition: all 0.5s ease 0.3s;
+	overflow: hidden;
+}
+.order-popup.active{
+	visibility: visible;
+	transform:  translateX(0%) ;
+	transition: all 0.5s ease 0.3s;
+	overflow: hidden;
+}
+.popupp.active{
+	position: absolute;
+	opacity: 1;
+	visibility: visible;
+	transform: translateX(0);
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 15;
+	transition: all 0.5s ease 0.3s;
+	overflow: hidden;
 }
 .popupp-wraper {
 	position: relative;
 	width: 100%;
-
+	
 }
 .popup-body {
 	position: absolute;
@@ -72,8 +101,7 @@ margin:30px;
 .popup-body__foto img{
 	width: 100%;
 }
-.popup-slider {
-}
+
 .popup-body__description {
 	padding:20px;
 }
@@ -166,15 +194,54 @@ margin:30px;
 }
 .button-form {
 }
+//rental-page__container-background
 .order-btn{
 	text-transform: uppercase;
 	font-weight: 700;
 }
+.menu-wraper {
+	position: absolute;
+	top: 70px;
+	right: 387px;
+	opacity: 0;
+	visibility: hidden;
+	transition: all 0.8s ease 0.5s;
+}
+.menu-wraper.active{
+	opacity: 1;
+	visibility: visible;
+	transition: all 0.8s ease 0.5s;
+	z-index: 30;
+}
+.menu-wraper__body{
+	padding:15px 20px 15px 20px;
+	background: #1A202C;
+	min-width: 300px;
+	min-height: 500px;
+	border-radius: 10px;
+	opacity: 0;
+	visibility: hidden;
 
+}
+.menu-wraper__body.active {
+	visibility: visible;
+	opacity: 1;
+}
+.navigation {
 
-
-
-
+}
+.menu-list {
+	display:flex;
+	flex-direction:column;
+	justify-content:center;
+	align-items:center;
+}
+.menu-list__item:not(:last-child) {
+margin:0px 0px 30px 0px;
+}
+.auth {
+	color: #fff;
+}
 
 ._container{
 	max-width: 1190px;
@@ -264,16 +331,7 @@ border: solid 1px  rgba(195, 212, 233, 0.4);
 	border-radius: 0px;
 	transition: all 0.5s ease 0.5s;
 }
-/* .input-wraper::before{
-	content: '';
-	position: absolute;
-	width: 25px;
-	height: 25px;
-	top: 25%;
-	background:url(../assets/img/search-normal.png)center center no-repeat;
-	margin:0px 0px 0px 10px;
-	z-index: 20;
-} */
+
 .searching-input {
 	border-radius: 28px;
 	font-size:16px;
@@ -339,19 +397,22 @@ margin:0px 0px 0px 40px;
 }
 /*стили для иконки крестика+анимашка*/
 .menu-burger {
+	width: 60px;
+	height: 60px;
 	position: relative;
 	cursor: pointer;
 	transition: all 0.3s ease-in-out 0.3s;
 }
 .burger-line{
 	position: absolute;
-	bottom: -2px;
+	top: 48%;
 	right: 20%;
 	width: 35px;
 	height: 3px;
 	border-radius: 2px;
 	background: rgba(61, 82, 120, 0.459);
 	transition: all 0.5s ease-in-out 0.3s;
+	z-index: 30;
 }
 .menu-burger:before,.menu-burger:after{
 	content: '';
@@ -361,13 +422,14 @@ margin:0px 0px 0px 40px;
 	border-radius: 2px;
 	background: rgba(61, 82, 120, 0.459);
 	transition: all 0.3s ease-in-out 0.3s;
+	z-index: 30;
 }
 .menu-burger:before{
-	top: 10px;
+	top: 25%;
 	right: 20%;
 }
 .menu-burger:after{
-	bottom: 10px;
+	bottom: 25%;
 	right: 20%;
 }
 .menu-burger.active .burger-line{
@@ -376,13 +438,15 @@ visibility: hidden;
 transition: all 0.5s ease-in-out 0.3s;
 }
 .menu-burger.active:after{
+	background: #000;
 	transform: rotate(45deg);
-	bottom: -1px;
+	bottom: 65%;
 	transition: all 0.3s ease-in-out 0.3s;
 }
 .menu-burger.active:before{
+	background: #000;
 	transform: rotate(-45deg);
-top: -1px;
+	top: 30%;
 transition: all 0.3s ease-in-out 0.3s;
 }
 /*---------------------------------------*/
