@@ -392,6 +392,7 @@ function renderFrash(inputSelector,containerSelector,carsArray) {
 }
 
 /*Метод фильтрации с пом checkbox */
+//переписать метод фильтрации
 const setFiltr = (arrayOfElementsPage, arrayObjects, containerInViewport,
 	 inputPriceSliderClass, textInputPriceClass) => {
 
