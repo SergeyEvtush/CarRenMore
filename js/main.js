@@ -391,45 +391,7 @@ function renderFrash(inputSelector,containerSelector,carsArray) {
 	 }
 }
 
-/*Метод фильтрации с пом checkbox */
-//переписать метод фильтрации
-const setFiltr = (arrayOfElementsPage, arrayObjects, containerInViewport,
-	 inputPriceSliderClass, textInputPriceClass) => {
 
-	const inputPriceSlider = document.querySelector(inputPriceSliderClass);
-	const textInputPrice = document.querySelector(textInputPriceClass);
-	arrayOfElementsPage.forEach((element) => {
-		element.addEventListener('click', (e) => {
-
-			e.preventDefault();
-			inputPriceSlider.value = 6000;
-			textInputPrice.innerHTML = "";
-			arrayOfElementsPage.forEach((el) => {
-
-				containerInViewport.innerHTML = "";
-				renderList(renderfilterList(arrayObjects, el.getAttribute('data-type')), containerInViewport);
-
-				el.classList.remove('active');
-				el.previousElementSibling.classList.remove('active');
-
-			});
-
-			element.classList.toggle('active');
-			element.previousElementSibling.classList.toggle('active');
-
-			if (element.classList.contains('active')) {
-				
-				containerInViewport.innerHTML = "";
-				renderList(renderfilterList(arrayObjects, element.getAttribute('data-type')), containerInViewport);
-
-			} else {
-			
-				containerInViewport.innerHTML = "";
-				renderList(arrayObjects, containerInViewport);
-			}
-		});
-	});
-};
 
 /*метод удаления классов с элемента */
 const clearAllClasses = (arrayFilters) => {
@@ -437,6 +399,34 @@ const clearAllClasses = (arrayFilters) => {
 	arrayFilters.forEach((element) => {
 		element.classList.remove('active');
 	});
+};
+
+/*Метод фильтрации с пом checkbox */
+const setFiltr = (arrayOfElementsPage, arrayObjects, containerInViewport,
+	inputPriceSliderClass, textInputPriceClass,imageClass,addRemovingClass) => {
+
+  	const inputPriceSlider = document.querySelector(inputPriceSliderClass);
+  	const textInputPrice = document.querySelector(textInputPriceClass);
+	const imageCheck=document.querySelectorAll(imageClass);
+	arrayOfElementsPage.forEach((element) => {
+
+	  		element.addEventListener('click', (e) => {
+				e.preventDefault();
+		imageCheck.forEach((el)=>{
+			if(el.classList.contains(addRemovingClass)){
+				el.classList.remove(addRemovingClass);
+			}
+		});
+
+		  inputPriceSlider.value = 6000;
+		  textInputPrice.innerHTML = "";
+		  element.classList.toggle(addRemovingClass);
+		  	element.previousElementSibling.classList.toggle(addRemovingClass);
+			containerInViewport.innerHTML = "";
+			renderList(renderfilterList(arrayObjects, element.getAttribute('data-type')), containerInViewport);
+		  
+	  });
+  });
 };
 
 /*создание кнопки -ссылки */
@@ -500,7 +490,7 @@ const renderPage = (cars,orderListClass) => {
 	const checkedImage = document.querySelectorAll('.checked__image');
 
 	//вывод отфильтрованных фильтров по цене
-	setFiltr(checkboxFilter, cars, orderList, '#price', '.price-value');
+	setFiltr(checkboxFilter, cars, orderList, '#price', '.price-value','.checked__image','active');
 
 	//клик по бургеру
 	const burger=document.querySelector('.menu-burger').addEventListener('click', () => {
