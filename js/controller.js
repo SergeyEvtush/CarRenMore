@@ -1,4 +1,5 @@
-
+import view from "./view";
+import model from "./model";
 
 //получение данных из файла
 const carsData = fetch('assets/data/dataCars.json')
