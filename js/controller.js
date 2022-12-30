@@ -1,5 +1,5 @@
 import view from "./view";
-import model from "./model";
+
 
 //получение данных из файла
 const carsData = fetch('assets/data/dataCars.json')
@@ -7,7 +7,7 @@ const carsData = fetch('assets/data/dataCars.json')
 		return data.json();
 	})
 	.then(data => {
-		renderPage(data,'.cars__fotos');
+		view.renderPage(data,'.cars__fotos');
 		
 
 		return data;
