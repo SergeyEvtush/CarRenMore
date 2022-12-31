@@ -24,6 +24,46 @@ export default{
 		</div>
 	</div>`;
 	},
+	//разметка popupp
+	createPopupOrderBy:(car) => { 
+		return `<div class="popupp-wraper _container">
+		<div class="popup-body order">
+		<div class="popup-close" id="close-order">
+			<a href="#" class="close-link"></a>
+		</div>
+		<div class="popup-body__title">
+			<h2 class="item-title">${car.model}</h2>
+		</div>
+		<div class="popup-body__description">
+		</div>
+		<div class="popup-body__buttons">
+		</div>
+		<div class="popup-body__form">
+			<div class="form-body">
+				<form action="" class="order-form">
+						<div class="order-form__item form-input">
+							<input type="text" class="input-order" id="Name">
+						</div>  
+						<div class="order-form__item form-input">
+							<input type="text" class="input-order" id="car">
+						</div>  
+						<div class="order-form__item form-input">
+							<input type="date" class="input-order date-order" id="take">
+							<input type="date" class="input-order date-order" id="back">
+						</div>  
+						<div class="order-form__item form-input">
+							<input type="checkbox" class="input-order check-input" id="buster">
+						</div>  
+						<div class="order-form__item button-form">
+							<button type="submit" id="submit" title="submit" class="rent-btn btn-rent-link order-btn">Order</button>
+						</div>
+						<div class="order-form__item form-input"></div>  
+				</form>
+			</div>
+		</div>
+		</div>
+	</div>`;
+	},
 	/*!создаю разметку для фильтров */
 	createFilters : (filtersArray, conatinerFiltersClass, carArr) => {
 
@@ -234,15 +274,6 @@ export default{
 			elem.insertAdjacentHTML('afterbegin', `<li class="ul-item"><a href="#" class="title-car">${car}</a></li>`);
 		});
 	},
-	//метод перерисовки странички с фото для инпута поиска
-	renderFrash:(inputSelector,container,carsArray)=> { 
-		const inp = document.querySelector(inputSelector);//
-		if (inp.value) {
-			container.innerHTML = "";
-			/* this.renderList(model.renderfilterList(carsArray, this.inp.value), container); *///!
-		}
-	},
-
 
 	/*создание кнопки -ссылки */
 	createLinkButtonInContainer : (classButton, containerClass, textInButton, hrefText = "#") => {
@@ -250,189 +281,8 @@ export default{
 		return container.insertAdjacentHTML("afterbegin",
 		`<a href="${hrefText}" class="${classButton}" >${textInButton}</a>`);
 
-	},
-	/*функция рисующая страничку */
-	/* renderPage : (cars,orderListClass) => {
+	}
 
-		//const burger = document.querySelector('.menu-burger');
-		const orderList = document.querySelector(orderListClass);
-
-		//создание кнопок для сброса фильтров и для фильтрации по цене
-		this.createLinkButtonInContainer(`rent-btn price-filter btn-rent-link`, '.button-filter-container', 'Price Filter');
-		this.createLinkButtonInContainer(`rent-btn clear-filters btn-rent-link`, '.button-container', 'Clear-filter');
-
-		//кнопка для показа еще машин show more
-		this.createLinkButtonInContainer(`btn-show`,`.show-more-btn__link`,'Show-more-car');
-
-		//отрисовка ползунка цен
-		this.renderPriceSlider('.price', '#price', '.price-value');
-
-		//отрисовка карточек авто
-		this.renderList(cars, orderList);
-		const showMoreCars=document.querySelector('.show-more-btn__link').addEventListener('click',(e)=>{
-			e.preventDefault();
-			
-			let count=orderList.children.length;
-			if(orderList.children.length>=cars.length){
-				orderList.innerHTML="";
-				this.renderList(cars, orderList,cars.length);
-			}else if(orderList.children.length<=cars.length){
-				orderList.innerHTML="";
-				this.renderList(cars, orderList,count+count);
-			}
-			
-
-		});
-		
-		//создаю ul в контейнере в котором выпадают подсказки при наборе 
-		this.createUl( '.searching-form__input');
-		const priceFilterButton = document.querySelector('.price-filter');
-		//событие клика кнопке фильтрации по цене
-		priceFilterButton.addEventListener('click', (e) => {
-			model.clearAllClasses(checkboxFilter);
-			model.clearAllClasses(checkedImage);
-			orderList.innerHTML = "";
-			this.renderList(this.renderfilterList(cars,'','',getDataValue('#price')), orderList); 
-			
-		});
-
-		//создаю чекбоксы для фильтов по различным данным авто
-		this.createFilters(getKey(cars, 'type'), '.filter1', cars);
-		this.createFilters(getKey(cars, 'capasity'), '.filter2', cars);
-
-		const checkboxFilter = document.querySelectorAll('.check');
-		const checkedImage = document.querySelectorAll('.checked__image');
-
-		//вывод отфильтрованных фильтров по цене
-		this.setFiltr(checkboxFilter, cars, orderList, '#price', '.price-value','.checked__image','active');
-
-		//клик по бургеру
-		const burger=document.querySelector('.menu-burger').addEventListener('click', () => {
-			document.querySelector('.menu-burger').classList.toggle('active');
-			document.querySelector('.menu-wraper').classList.toggle('active');
-			document.querySelector('.menu-wraper__body').classList.toggle('active');
-			document.querySelector('body').classList.toggle('lock');
-		});
-
-		//клик по кнопке поиск
-		const serchClick = document.querySelector('#serch-btn').addEventListener('click', () => {
-			this.renderFrash('.searching-input', '.cars__fotos',cars);
-			model.clearLi('.searching-input', '.elementsList');
-		});
-		
-		//функция клика по кнопке очистки инпута
-		const clearBtn = document.querySelector('.clear-filter-btn').addEventListener('click', (e) => { 
-		const form = document.querySelector('#form');
-		form.reset();
-		this.clearInput('.searching-input','.elementsList',cars);
-		});
-
-		//прослушиваем инпут на нажатие кнопки del
-		const keyDown=document.querySelector('#serch').addEventListener("keydown", (e) => {	
-			if (e.code == 'Backspace') { 
-				this.clearInput('.searching-input', '.elementsList',cars);
-			}
-		});//!
-
-	//прослушиваем инпут на ввод
-		const inp= document.querySelector('#serch').addEventListener('input', (e) => {
-			e.preventDefault();
-			this.clearInput('.searching-form__input', '.elementsList',cars);
-			this.showElement(getDataInputSerch('.searching-form__input', '#serch'),
-			model.getKey(cars, 'model'), '.elementsList', '.searching-input','.ul-item');
-			
-			const liArray=document.querySelectorAll('.ul-item').forEach((li)=>{
-					li.addEventListener('click',()=>{
-					this.renderFrash('.searching-input', '.cars__fotos',cars);
-					model.clearLi('.searching-input', '.elementsList');
-					});
-				});
-		});
-
-		//очищаю инпут по клику на него
-	const inpClick=document.querySelector('#serch').addEventListener('click',()=>{
-		document.querySelector('#serch').value='';
-		orderList.innerHTML = "";
-		this.renderList(cars, orderList);
-	});
-
-	//сбрасываем все установленные фильтры
-		const clearFilters = document.querySelector('.clear-filters');
-		clearFilters.addEventListener('click', (e) => {
-			e.preventDefault();
-			model.setStartValue('#price', 1000);
-			model.innerStartValue('.price-value', '1000');
-			model.clearAllClasses(checkboxFilter);
-			model.clearAllClasses(checkedImage);
-			orderList.innerHTML = "";
-			this.renderList(cars, orderList);
-		});
-
-		//слушаем события клика на кнопку и клика на фотку машины
-		const clickRentNow = orderList.addEventListener('click', (e) => { 
-
-			
-
-			fotoContainer.forEach((elem) => { 
-				const foto=elem.querySelector('.foto');
-				if (e.target == elem||e.target==foto) { 
-					popup.classList.toggle('active');
-					popup.innerHTML = this.createPopup(this.renderfilterList(cars, '', elem.id, ''));
-					this.createDescription('.popup-body__description', renderfilterList(cars, '', elem.id, ''),
-					'description-list__item', 'description-list');
-					this.createLinkButtonInContainer(`btn-rent-link rent-btn popup-btn`, '.popup-body__buttons', 'Rent Now');
-					this.createLinkButtonInContainer(`phone-link rent-btn`, '.popup-body__buttons', 'Phone Now');
-					document.querySelector('body').classList.toggle('lock');
-						
-					//клик по кнопке внутри попапа
-					const orderBtn = popup.querySelector('.popup-btn');
-					orderBtn.addEventListener('click', (e) => { 
-						orderBtn.classList.toggle('active');
-						e.preventDefault();
-						popup.classList.remove('active');
-						popupOrder.classList.toggle('active');
-						popupOrder.innerHTML = this.createPopupOrderBy(this.renderfilterList(cars, '', elem.id, ''));
-						model.closePopup('.order-popup', '#close-order', 'active','lock');
-						
-						//раскоментировать для появления первого модалки при закрытии 
-						//popup.classList.toggle('active');
-					});
-					model.closePopup('.popupp', '#close-popup', 'active','lock');
-					
-				}
-			});
-			orderList.querySelectorAll('.btn-rent-link').forEach((el) => { 
-				
-				if (e.target != el) {
-					e.preventDefault();
-					el.classList.remove('active');
-				}
-				if (e.target == el) {
-					e.preventDefault();
-					el.classList.toggle('active');
-					document.querySelector('body').classList.toggle('lock');
-					cars.forEach((car) => { 
-						if (car.model == el.getAttribute("data-name")) { 
-							popupOrder.classList.add('active');
-							popupOrder.innerHTML = this.createPopupOrderBy(this.renderfilterList(cars, '', car.id, ''));
-							const dateTimePicker = document.querySelectorAll('.date-order');
-							dateTimePicker.forEach((item) => { 
-								item.addEventListener('click', (ev) => { 
-									ev.preventDefault();
-								});
-							});
-							
-							model.closePopup('.order-popup', '#close-order', 'active','lock');
-							for (const key in car) {
-								if(key!="foto")
-									console.log(`${key}: `,car[key]);
-							}
-						}
-					});
-				}
-			});
-		}); 
-		
-	} */
+	
 };
 
