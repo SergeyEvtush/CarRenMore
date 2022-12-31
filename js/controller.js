@@ -117,13 +117,13 @@ function	renderPage  (cars,orderListClass)  {
 			orderList.innerHTML = "";
 			view.renderList(cars, orderList);
 		});
-		 orderList.addEventListener('click', (e) => { 
+		orderList.addEventListener('click', (e) => { 
 
 			fotoContainer.forEach((elem) => { 
 				const foto=elem.querySelector('.foto');
 				if (e.target == elem||e.target==foto) { 
 					popup.classList.toggle('active');
-					popup.innerHTML = view.createPopup(model.renderfilterList(cars, '', elem.id, ''));
+					popup.innerHTML = model.createPopup(model.renderfilterList(cars, '', elem.id, ''));
 					view.createDescription('.popup-body__description', model.renderfilterList(cars, '', elem.id, ''),
 					'description-list__item', 'description-list');
 					view.createLinkButtonInContainer(`btn-rent-link rent-btn popup-btn`, '.popup-body__buttons', 'Rent Now');
@@ -137,7 +137,7 @@ function	renderPage  (cars,orderListClass)  {
 						e.preventDefault();
 						popup.classList.remove('active');
 						popupOrder.classList.toggle('active');
-						popupOrder.innerHTML = view.createPopupOrderBy(model.renderfilterList(cars, '', elem.id, ''));
+						popupOrder.innerHTML = model.createPopupOrderBy(model.renderfilterList(cars, '', elem.id, ''));
 						model.closePopup('.order-popup', '#close-order', 'active','lock');
 						
 						//раскоментировать для появления первого модалки при закрытии 
@@ -148,7 +148,6 @@ function	renderPage  (cars,orderListClass)  {
 				}
 			});
 			orderList.querySelectorAll('.btn-rent-link').forEach((el) => { 
-				
 				if (e.target != el) {
 					e.preventDefault();
 					el.classList.remove('active');
@@ -160,7 +159,7 @@ function	renderPage  (cars,orderListClass)  {
 					cars.forEach((car) => { 
 						if (car.model == el.getAttribute("data-name")) { 
 							popupOrder.classList.add('active');
-							popupOrder.innerHTML = view.createPopupOrderBy(model.renderfilterList(cars, '', car.id, ''));
+							popupOrder.innerHTML = model.createPopupOrderBy(model.renderfilterList(cars, '', car.id, ''));
 							const dateTimePicker = document.querySelectorAll('.date-order');
 							dateTimePicker.forEach((item) => { 
 								item.addEventListener('click', (ev) => { 
@@ -188,9 +187,6 @@ const carsData = fetch('assets/data/dataCars.json')
 	})
 	.then(data => {
 		renderPage(data,'.cars__fotos');
-		/* view.renderList(data, orderList); */
-		
-
 		return data;
 		
 	});
