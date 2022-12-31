@@ -27,15 +27,18 @@ export default{
 	},
 	/*метод возвращающий отфильтрованные машины по буквенному значению,или id,или цене */
 	renderfilterList:(arrCars, filterName='',idCar='',price='') => {
+		
 		if (filterName != '') {
 			const newArr = arrCars.filter((element) => {
 				for (const key in element) {
 						if (element[key] ==filterName[0].toUpperCase()+filterName.slice(1)){
+							console.log(element);
 							return element;
 					}
 					
 				}
 			});
+			console.log(newArr);
 			return newArr;
 		}
 		if (idCar != '') { 
@@ -117,9 +120,6 @@ export default{
 			clearingInput.innerText = '';
 			ul.innerHTML = '';
 		}
-		const orderList = document.querySelector('.cars__fotos');
-		orderList.innerHTML = '';
-		renderList(array, orderList);
 	},
 	clearLi:(classInput, ulClass)=> { 	
 		const clearingInput = document.querySelector(classInput);

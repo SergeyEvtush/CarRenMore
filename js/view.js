@@ -1,4 +1,4 @@
-import model from "model.js";
+import model from "./model.js";
 export default{
 	//разметка popupp
 	createPopup : (car) => { 
@@ -36,13 +36,13 @@ export default{
 				<div class="checked__image"></div>
 				<input type="checkbox" name="type" id="${el}" class="check" data-type="${el}">
 					<label>${el}</label>
-					<span class="metriks">(${quantityElements(carArr, el)})</span>
+					<span class="metriks">(${model.quantityElements(carArr, el)})</span>
 			</li>`);
 		});
 		containerFilters.appendChild(ul);
 	},
 	/*разметка для карточки */
-	renderCard : (car) => {
+	/* renderCard : (car) => {
 
 		return `<div class="cars-item">
 	<div class="car-item__wraper cars-conteiner">
@@ -86,14 +86,55 @@ export default{
 		</div>
 	</div>
 	</div>`;
-	},
+	}, */
 	/*метод рисующий карточки */
 	renderList : (arrElements, containerInViewport,count=6) => {
 		let count1=0;
 			arrElements.forEach(element => {
 					count1++;
 				if(count1<=count){
-					containerInViewport.insertAdjacentHTML('afterbegin', renderCard(element));
+					containerInViewport.insertAdjacentHTML('afterbegin', /* this.renderCard(element) */ `<div class="cars-item">
+					<div class="car-item__wraper cars-conteiner">
+						<div class="cars-item__title">
+							<h4 class="title-car">${element.model}</h4>
+							<h6 class="type-car">${element.type}</h6>
+							<div class="car-reiting">
+								<img src="assets/img/heart.svg" alt="heart">
+								<img src="assets/img/heart.svg" alt="heart">
+								<img src="assets/img/heart.svg" alt="heart">
+								<img src="assets/img/heart.svg" alt="heart">
+								<img src="assets/img/heart.svg" alt="heart">
+								<img src="assets/img/heart.svg" alt="heart">
+							</div>
+						</div>
+						<div class="cars-item__foto" id="${element.id}">
+							<img src="${element.foto}" alt="car" class="foto">
+						</div>
+						<div class="cars-item__description">
+							<ul class="description-car">
+								<li>Fuel type:<span>${element.fuelType}</span></li>
+								<li>Transmission:<span>${element.transmission}</span></li>
+								<li>Size:<span>${element.capasity}</span></li>
+								<li>Year:<span>${element.year}</span></li>
+							</ul>
+						</div>
+						<div class="cars-item__to-order">
+							<div class="order-price cars-item__price">
+								<p class="price-order">
+									${element.price}/
+								</p>
+								<p class="price-order _grey">day</p>
+							</div>
+							<div class="order-button cars-item__button">
+								<div class="rent-btn">
+									<a href="#" class="btn-rent-link" data-name="${element.model}">
+										Rent Now
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+					</div>`);
 				}
 					
 			});
@@ -113,14 +154,17 @@ export default{
 	renderPriceSlider : (containerSelector, inputSelector, textSelector) => {
 
 		const container = document.querySelector(containerSelector);//контайнер для ползунка цен
-		container.insertAdjacentHTML("afterbegin", renderSlider());//вставляю разметку для ползунка цен
+		container.insertAdjacentHTML("afterbegin", /* this.renderSlider() */`<div class="price-item">
+		<div class="slidecontainer">
+			<input type="range" min="1000" max="6000" value="500" class="price-slider" id="price" data-type="1000">
+			<div class="slidecontainer__text">
+				<h4 class="title-car price-value"></h4>
+			</div>
+		</div>
+	</div>`);//вставляю разметку для ползунка цен
 		const inputPrice = container.querySelector(inputSelector);//инпут в разметке
 		const textPrice = container.querySelector(textSelector);//тект на экране
-
-		textPrice.innerHTML = inputPrice.value;//рисуем цену 
-		inputPrice.addEventListener('input', () => {
-			this.priceValueS('#price', '.price-value');
-		});//обновляем цеену по инпуту
+		textPrice.innerHTML = inputPrice.value;//рисуем цену 	
 	},
 	//функция получения цены и отображения ее на экране
 	priceValueS:(filterSliderClass, priceValueSelector)=> {
@@ -191,42 +235,15 @@ export default{
 		});
 	},
 	//метод перерисовки странички с фото для инпута поиска
-	renderFrash:(inputSelector,containerSelector,carsArray)=> { 
-
+	renderFrash:(inputSelector,container,carsArray)=> { 
 		const inp = document.querySelector(inputSelector);//
 		if (inp.value) {
-			const container = document.querySelector(containerSelector);
 			container.innerHTML = "";
-			this.renderList(renderfilterList(carsArray, inp.value), container);
+			/* this.renderList(model.renderfilterList(carsArray, this.inp.value), container); *///!
 		}
 	},
-	/*Метод фильтрации с пом checkbox */
-	setFiltr : (arrayOfElementsPage, arrayObjects, containerInViewport,
-		inputPriceSliderClass, textInputPriceClass,imageClass,addRemovingClass) => {
 
-		const inputPriceSlider = document.querySelector(inputPriceSliderClass);
-		const textInputPrice = document.querySelector(textInputPriceClass);
-		const imageCheck=document.querySelectorAll(imageClass);
-		arrayOfElementsPage.forEach((element) => {
 
-				element.addEventListener('click', (e) => {
-					e.preventDefault();
-			imageCheck.forEach((el)=>{
-				if(el.classList.contains(addRemovingClass)){
-					el.classList.remove(addRemovingClass);
-				}
-			});
-
-			inputPriceSlider.value = 6000;
-			textInputPrice.innerHTML = "";
-			element.classList.toggle(addRemovingClass);
-				element.previousElementSibling.classList.toggle(addRemovingClass);
-				containerInViewport.innerHTML = "";
-				this.renderList(this.renderfilterList(arrayObjects, element.getAttribute('data-type')), containerInViewport);
-			
-		});
-	});
-	},
 	/*создание кнопки -ссылки */
 	createLinkButtonInContainer : (classButton, containerClass, textInButton, hrefText = "#") => {
 		const container = document.querySelector(containerClass);
@@ -235,9 +252,9 @@ export default{
 
 	},
 	/*функция рисующая страничку */
-	renderPage : (cars,orderListClass) => {
+	/* renderPage : (cars,orderListClass) => {
 
-		/* const burger = document.querySelector(); */
+		//const burger = document.querySelector('.menu-burger');
 		const orderList = document.querySelector(orderListClass);
 
 		//создание кнопок для сброса фильтров и для фильтрации по цене
@@ -315,7 +332,7 @@ export default{
 			if (e.code == 'Backspace') { 
 				this.clearInput('.searching-input', '.elementsList',cars);
 			}
-		});
+		});//!
 
 	//прослушиваем инпут на ввод
 		const inp= document.querySelector('#serch').addEventListener('input', (e) => {
@@ -354,9 +371,7 @@ export default{
 		//слушаем события клика на кнопку и клика на фотку машины
 		const clickRentNow = orderList.addEventListener('click', (e) => { 
 
-			const fotoContainer = orderList.querySelectorAll('.cars-item__foto');
-			const popupOrder = document.querySelector('.order-popup');
-			const popup = document.querySelector('#description-popup');
+			
 
 			fotoContainer.forEach((elem) => { 
 				const foto=elem.querySelector('.foto');
@@ -380,7 +395,7 @@ export default{
 						model.closePopup('.order-popup', '#close-order', 'active','lock');
 						
 						//раскоментировать для появления первого модалки при закрытии 
-						/* popup.classList.toggle('active'); */
+						//popup.classList.toggle('active');
 					});
 					model.closePopup('.popupp', '#close-popup', 'active','lock');
 					
@@ -418,6 +433,6 @@ export default{
 			});
 		}); 
 		
-	}
+	} */
 };
 
